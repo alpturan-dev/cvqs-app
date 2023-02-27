@@ -1,5 +1,8 @@
 import {useState, useEffect} from "react";
 import axios from 'axios';
+import Navbar from "../components/Navbar";
+import {Box} from '@mui/material'
+import TerminalTable from "../components/TerminalTable";
 
 function TerminalListPage() {
 
@@ -20,16 +23,15 @@ function TerminalListPage() {
         }
 
         getTerminalList();
+
     }, [])
 
     return (
         <>
-            <h1>Terminal List Page</h1>
-            <div>
-                {terminalList.map((terminal) => (
-                    <div key={terminal.depName}>{terminal.depName}</div>
-                ))}
-            </div>
+            <Navbar/>
+            <Box sx={{backgroundColor: "primary.main", padding: "20px 50px"}}>
+                <TerminalTable terminals={terminalList}/>
+            </Box>
         </>
     );
 }
