@@ -1,6 +1,13 @@
 import {Box, Typography} from '@mui/material'
+import {useNavigate} from "react-router-dom";
 
 function TerminalTable({terminals}) {
+
+    const navigate = useNavigate();
+    const handleLogin = (depCode, termName) => {
+        navigate(`/terminal/${depCode}/${termName}`);
+    }
+
     return (
         <>
             <Typography variant='h5' sx={{
@@ -37,8 +44,9 @@ function TerminalTable({terminals}) {
                 padding: "5px 30px",
                 color: "secondary.main",
             }}>
-                {terminals.map((terminal) => (
+                {terminals.map((terminal, index) => (
                     <Box
+                        key={index}
                         sx={{display: "flex", alignItems: "center", borderBottom: "1px solid gray", padding: "20px 0"}}>
                         <Box sx={{width: "20%", fontWeight: "bolder"}}>
                             {terminal.depName}
@@ -51,17 +59,26 @@ function TerminalTable({terminals}) {
                             width: "80%",
                             minHeight: "0px"
                         }}>
-                            {terminal.filterBaseds.map((filtered) => (
-                                <Box sx={{
-                                    position: "relative",
-                                    minWidth: "60px",
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    border: "1px solid gray",
-                                    borderRadius: "2px",
-                                    padding: "15px 10px"
-                                }}>
+                            {terminal.filterBaseds.map((filtered, index) => (
+                                <Box
+                                    key={index}
+                                    onClick={() => handleLogin(terminal.depCode, filtered.filterCode)}
+                                    sx={{
+                                        cursor: 'pointer',
+                                        position: "relative",
+                                        minWidth: "60px",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        border: "1px solid gray",
+                                        borderRadius: "0px",
+                                        padding: "15px 10px",
+                                        '&:hover': {
+                                            transition: "0.5s all",
+                                            backgroundColor: "secondary.main",
+                                            color: "#eee"
+                                        }
+                                    }}>
                                     <Box
                                         sx={{
                                             textAlign: "center",

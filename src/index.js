@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {BrowserRouter} from "react-router-dom";
+import {TerminalProvider} from "./context/TerminalContext";
 
 const theme = createTheme({
     palette: {
@@ -22,9 +23,11 @@ const theme = createTheme({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-    <ThemeProvider theme={theme}>
-        <BrowserRouter>
-            <App/>
-        </BrowserRouter>
-    </ThemeProvider>
+    <TerminalProvider>
+        <ThemeProvider theme={theme}>
+            <BrowserRouter>
+                <App/>
+            </BrowserRouter>
+        </ThemeProvider>
+    </TerminalProvider>
 );

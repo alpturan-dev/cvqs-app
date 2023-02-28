@@ -1,5 +1,5 @@
 import {Box, Typography} from '@mui/material'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 function Navbar() {
     return (
@@ -14,21 +14,20 @@ function Navbar() {
                 <Typography variant='h4' sx={{fontWeight: "bolder"}}>Complete Vehicle Quality</Typography>
                 <Box
                     sx={{display: "flex", gap: "25px"}}>
-                    <Link to='' style={{textDecoration: "none"}}>
-                        <Typography sx={{textDecoration: "none", color: "#c1121f", fontWeight: "bolder"}}>
-                            Yardım
-                        </Typography>
-                    </Link>
-                    <Link to='' style={{textDecoration: "none"}}>
-                        <Typography sx={{textDecoration: "none", color: "#c1121f", fontWeight: "bolder"}}>
-                            Anasayfa
-                        </Typography>
-                    </Link>
-                    <Link to='' style={{textDecoration: "none"}}>
-                        <Typography sx={{textDecoration: "none", color: "#c1121f", fontWeight: "bolder"}}>
-                            Destek
-                        </Typography>
-                    </Link>
+                    {['Yardım', 'Anasayfa', 'Destek'].map((value, index) => (
+                        <Link key={index} to='' style={{textDecoration: "none"}}>
+                            <Typography sx={{
+                                textDecoration: "none",
+                                color: "#c1121f",
+                                fontWeight: "bolder",
+                                '&:hover': {
+                                    opacity: "0.8"
+                                }
+                            }}>
+                                {value}
+                            </Typography>
+                        </Link>
+                    ))}
                 </Box>
             </Box>
         </Box>
