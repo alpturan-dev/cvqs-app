@@ -7,7 +7,6 @@ function Navbar() {
             backgroundColor: "primary.main",
             color: "secondary.main",
             padding: "25px 50px",
-            borderBottom: "1px solid",
             borderColor: "secondary.main"
         }}>
             <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>

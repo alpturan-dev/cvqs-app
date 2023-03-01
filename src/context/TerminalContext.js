@@ -1,9 +1,9 @@
-import {useState, createContext} from "react";
+import { useState, createContext } from "react";
 import axios from "axios";
 
 const TerminalContext = createContext();
 
-export const TerminalProvider = ({children}) => {
+export const TerminalProvider = ({ children }) => {
 
     const [terminalList, setTerminalList] = useState([]);
 
@@ -13,7 +13,6 @@ export const TerminalProvider = ({children}) => {
                 .then(res => {
                     const response = res.data;
                     setTerminalList(response.data)
-                    console.log(response.data)
                 });
         } catch (error) {
             console.error(error);
@@ -28,7 +27,6 @@ export const TerminalProvider = ({children}) => {
                 .then(res => {
                     const response = res.data;
                     setFilteredTerminals(response.data)
-                    console.log(response.data)
                 });
         } catch (error) {
             console.error(error);

@@ -5,6 +5,7 @@ import App from './App';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {BrowserRouter} from "react-router-dom";
 import {TerminalProvider} from "./context/TerminalContext";
+import {ShiftProvider} from "./context/ShiftContext";
 
 const theme = createTheme({
     palette: {
@@ -24,10 +25,12 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <TerminalProvider>
-        <ThemeProvider theme={theme}>
-            <BrowserRouter>
-                <App/>
-            </BrowserRouter>
-        </ThemeProvider>
+        <ShiftProvider>
+            <ThemeProvider theme={theme}>
+                <BrowserRouter>
+                    <App/>
+                </BrowserRouter>
+            </ThemeProvider>
+        </ShiftProvider>
     </TerminalProvider>
 );

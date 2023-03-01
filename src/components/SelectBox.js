@@ -3,9 +3,9 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import {useState} from "react";
+import { useState } from "react";
 
-function SelectBox({categories}) {
+function SelectBox({ inputLabel, categories }) {
 
     const [selected, setSelected] = useState("");
 
@@ -15,8 +15,8 @@ function SelectBox({categories}) {
 
     return (
         <div>
-            <FormControl variant="filled" sx={{minWidth: 200}}>
-                <InputLabel id="demo-simple-select-standard-label">Terminal</InputLabel>
+            <FormControl variant="filled" sx={{ minWidth: 200 }}>
+                <InputLabel id="demo-simple-select-standard-label">{inputLabel}</InputLabel>
                 <Select
                     value={selected}
                     onChange={handleChange}
