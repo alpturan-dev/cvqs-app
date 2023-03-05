@@ -33,13 +33,17 @@ export const TerminalProvider = ({ children }) => {
         }
     }
 
+    const [selectedTerminal, setSelectedTerminal] = useState("");
+
     const terminaldata = {
         terminalList,
         setTerminalList,
         getTerminals,
         filteredTerminals,
         setFilteredTerminals,
-        getFilteredTerminals
+        getFilteredTerminals,
+        selectedTerminal,
+        setSelectedTerminal
     }
     return <TerminalContext.Provider value={terminaldata}>{children}</TerminalContext.Provider>
 }
