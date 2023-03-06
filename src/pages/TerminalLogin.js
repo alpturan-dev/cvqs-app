@@ -9,10 +9,15 @@ import SelectBox from "../components/SelectBox";
 import ShiftBox from "../components/ShiftBox";
 import VirtualKeyboard from "../components/VirtualKeyboard";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 function TerminalLoginPage() {
 
     let { depCode, termName } = useParams();
+    const navigate = useNavigate();
+    const handleDefectEntry = (depCode, termName) => {
+        navigate(`/terminal/defectentry/${depCode}/${termName}/3070725`);
+    }
     const { filteredTerminals, getFilteredTerminals, selectedTerminal } = useContext(TerminalContext);
     const {
         sicilNo,
@@ -119,7 +124,10 @@ function TerminalLoginPage() {
                         return errors;
                     }}
                     onSubmit={(values) => {
-                        alert(JSON.stringify(values, null, 2));
+                        setTimeout(() => {
+                            // alert(JSON.stringify(values, null, 2));
+                            handleDefectEntry(depCode, termName);
+                        }, 600);
                     }}
                 >
                     {props => (

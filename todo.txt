@@ -3,3 +3,4 @@ Terminal Login sayfasina gec.
 Logın sayfasına tarıh kısmından devam et.
 Fieldlardaki bugu duzelt.
 Warning var shift degistirirken duzelt.
+Mocks icerisinde diger requestleri de mock yap.

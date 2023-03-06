@@ -7,6 +7,10 @@ import { BrowserRouter } from "react-router-dom";
 import { TerminalProvider } from "./context/TerminalContext";
 import { ShiftProvider } from "./context/ShiftContext";
 
+if (process.env.NODE_ENV === 'development') {
+    require('./mocks/browser')
+}
+
 const theme = createTheme({
     palette: {
         primary: {
@@ -21,6 +25,7 @@ const theme = createTheme({
         fontFamily: `'Poppins', sans-serif`
     }
 });
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(

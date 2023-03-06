@@ -1,12 +1,14 @@
-import {Routes, Route} from 'react-router-dom'
-import TerminalListPage from "./pages/TerminalListPage";
-import TerminalLoginPage from "./pages/TerminalLoginPage";
+import { Routes, Route } from 'react-router-dom'
+import DefectEntry from './pages/DefectEntry';
+import TerminalList from "./pages/TerminalList";
+import TerminalLogin from "./pages/TerminalLogin";
 
 function App() {
     return (
         <Routes>
-            <Route path="/" element={<TerminalListPage/>}/>
-            <Route path="/terminal/:depCode/:termName" element={<TerminalLoginPage/>}/>
+            <Route path="/" element={<TerminalList />} />
+            <Route path="/terminal/:depCode/:termName" element={<TerminalLogin />} />
+            <Route path="/terminal/defectentry/:depCode/:termName/3070725" element={<DefectEntry />} />
         </Routes>
     );
 }
