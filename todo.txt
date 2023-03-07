@@ -1,6 +1,7 @@
-Route'lara dikkat et.
-Terminal Login sayfasina gec.
-Logın sayfasına tarıh kısmından devam et.
-Fieldlardaki bugu duzelt.
-Warning var shift degistirirken duzelt.
-Mocks icerisinde diger requestleri de mock yap.
+Route'lara dikkat et. DONE
+Terminal Login sayfasina gec. DONE
+Logın sayfasına tarıh kısmından devam et. DONE
+Fieldlardaki bugu duzelt. DONE
+Warning var shift degistirirken duzelt. DONE
+Mocks icerisinde diger requestleri de mock yap. DONE
+Defect entry sayfa tasarimi

@@ -5,13 +5,11 @@ const TerminalContext = createContext();
 
 export const TerminalProvider = ({ children }) => {
 
-    const MOCK_SERVER_URL = "https://621d0b75-23b1-4d4c-9d2b-543cacbfc839.mock.pstmn.io"
-
     const [terminalList, setTerminalList] = useState([]);
 
     async function getTerminals() {
         try {
-            await axios.get(`${MOCK_SERVER_URL}/terminals`)
+            await axios.get(`/terminals`)
                 .then(res => {
                     const response = res.data;
                     setTerminalList(response.data)
@@ -25,7 +23,7 @@ export const TerminalProvider = ({ children }) => {
 
     async function getFilteredTerminals(depCode, termName) {
         try {
-            await axios.get(`${MOCK_SERVER_URL}/terminal/${depCode}/${termName}`)
+            await axios.get(`/terminal/${depCode}/${termName}`)
                 .then(res => {
                     const response = res.data;
                     setFilteredTerminals(response.data)
@@ -39,10 +37,11 @@ export const TerminalProvider = ({ children }) => {
 
     async function getTerminalDefects(depCode, termName) {
         try {
-            await axios.get(`${MOCK_SERVER_URL}/terminal/defectentry/${depCode}/${termName}/3070725`)
+            await axios.get(`/terminal/defectentry/${depCode}/${termName}/3070725`)
                 .then(res => {
                     const response = res.data;
                     setTerminalDefects(response.data[0].defectButtonRecords)
+                    //console.log(response.data[0].defectButtonRecords)
                 });
         } catch (error) {
             console.error(error);
@@ -56,7 +55,8 @@ export const TerminalProvider = ({ children }) => {
             await axios.get(`/terminal/defectentry/${depCode}/${termName}/3070725/header`)
                 .then(res => {
                     const response = res.data;
-                    setDefectPageHeader(response.data)
+                    setDefectPageHeader(response.data[0])
+                    console.log(response.data[0])
                 });
         } catch (error) {
             console.error(error);

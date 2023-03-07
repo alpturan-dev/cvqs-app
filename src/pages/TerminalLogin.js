@@ -15,10 +15,10 @@ function TerminalLoginPage() {
 
     let { depCode, termName } = useParams();
     const navigate = useNavigate();
-    const handleDefectEntry = (depCode, termName) => {
-        navigate(`/terminal/defectentry/${depCode}/${termName}/3070725`);
+    const handleDefectEntry = (depCode, termName, values) => {
+        navigate(`/terminal/defectentry/${depCode}/${termName}/3070725`, { state: values });
     }
-    const { filteredTerminals, getFilteredTerminals, selectedTerminal } = useContext(TerminalContext);
+    const { filteredTerminals, getFilteredTerminals, selectedTerminal, setSelectedTerminal } = useContext(TerminalContext);
     const {
         sicilNo,
         setSicilNo,
@@ -29,7 +29,9 @@ function TerminalLoginPage() {
         field,
         setField,
         date,
-        shift
+        setDate,
+        shift,
+        setShift
     } = useContext(ShiftContext);
 
     useEffect(() => {
@@ -125,8 +127,14 @@ function TerminalLoginPage() {
                     }}
                     onSubmit={(values) => {
                         setTimeout(() => {
+                            setSelectedTerminal(values.selectedTerminal)
+                            setSicilNo(values.sicilNo)
+                            setPassword(values.password)
+                            setMontajNo(values.montajNo)
+                            setDate(values.date)
+                            setShift(values.shift)
                             // alert(JSON.stringify(values, null, 2));
-                            handleDefectEntry(depCode, termName);
+                            handleDefectEntry(depCode, termName, values);
                         }, 600);
                     }}
                 >
