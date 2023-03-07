@@ -63,7 +63,7 @@ export const TerminalProvider = ({ children }) => {
         }
     }
 
-    const [selectedTerminal, setSelectedTerminal] = useState("");
+    const [selectedTerminal, setSelectedTerminal] = useState('');
 
     const terminaldata = {
         terminalList,

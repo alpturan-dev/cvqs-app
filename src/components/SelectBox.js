@@ -27,8 +27,8 @@ function SelectBox({ inputLabel, categories }) {
                     MenuProps={{
                         PaperProps: {
                             onScroll: (event) => {
-                                console.log("we scroll");
-                                console.log(event);
+                                // console.log("we scroll");
+                                // console.log(event);
                                 // if (event.target.scrollTop === event.target.scrollHeight) {
                                 //   setCategoryNamePagination(categoryNamePagination + 1);
                                 // }

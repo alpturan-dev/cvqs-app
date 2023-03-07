@@ -1,6 +1,7 @@
 import { Box, Container, Typography } from "@mui/material"
 import { useEffect, useContext } from "react"
 import { useParams, useLocation } from "react-router-dom";
+import ShiftContext from "../context/ShiftContext";
 import TerminalContext from "../context/TerminalContext"
 
 function DefectEntry() {
@@ -11,15 +12,16 @@ function DefectEntry() {
 
     const { terminalDefects, getTerminalDefects, defectPageHeader, getDefectPageHeader } = useContext(TerminalContext);
 
+    const { colors } = useContext(ShiftContext);
 
     useEffect(() => {
-        console.log("values", state)
+        console.log("values", state.shift)
         getTerminalDefects(depCode, termName)
         getDefectPageHeader(depCode, termName)
     }, [])
 
     return (
-        <>
+        <Box sx={{ backgroundColor: "primary.main" }}>
             <Container
                 maxWidth="lg"
                 sx={{
@@ -72,7 +74,7 @@ function DefectEntry() {
                                 border: "1px solid gray",
                                 borderRadius: "10px",
                                 padding: "10px 20px",
-                                backgroundColor: defectPageHeader.bgColor,
+                                backgroundColor: colors.filter(color => color.name === state.shift)[0].color,
                                 color: "white"
                             }}>
                             <Typography variant="h6">
@@ -127,7 +129,7 @@ function DefectEntry() {
             {/* {terminalDefects.map((defect) => (
                 <div>{defect.labelText}</div>
             ))} */}
-        </>
+        </Box>
     )
 }
 export default DefectEntry

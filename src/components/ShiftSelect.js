@@ -8,25 +8,26 @@ import ShiftContext from "../context/ShiftContext";
 import { Typography } from "@mui/material";
 import { useFormikContext } from 'formik';
 function ShiftSelect() {
-    const colors = ['M', 'K', 'B']
 
-    const { selectedColor, setSelectedColor, setShift } = useContext(ShiftContext)
+    const { colors, selectedColor, setSelectedColor, setShift } = useContext(ShiftContext)
 
     const { setFieldValue } = useFormikContext();
 
     const handleChange = (e) => {
-        setSelectedColor(e.target.value)
+        let color = colors.filter(color => color.code === e.target.value)
+        console.log("color", color[0])
+        setSelectedColor(color[0])
     }
 
     //Warning
     useEffect(() => {
         setShift((function () {
-            if (selectedColor === 'M') {
-                setFieldValue("shift", "Mavi")
-            } else if (selectedColor === 'K') {
-                setFieldValue("shift", "Kırmızı")
-            } else if (selectedColor === 'B') {
-                setFieldValue("shift", "Beyaz")
+            if (selectedColor.code === "M") {
+                setFieldValue("shift", selectedColor.name)
+            } else if (selectedColor.code === "K") {
+                setFieldValue("shift", selectedColor.name)
+            } else if (selectedColor.code === "B") {
+                setFieldValue("shift", selectedColor.name)
             }
         }))
     }, [selectedColor])
@@ -37,11 +38,11 @@ function ShiftSelect() {
             <FormControl variant="filled" sx={{ minWidth: 200 }}>
                 <InputLabel>Vardiya</InputLabel>
                 <Select
-                    value={selectedColor}
+                    value={selectedColor.code}
                     onChange={handleChange}
                 >
                     {colors.map((color, index) => (
-                        <MenuItem value={color} key={index}>{color}</MenuItem>
+                        <MenuItem value={color.code} key={index}>{color.code}</MenuItem>
                     ))}
                 </Select>
             </FormControl>
