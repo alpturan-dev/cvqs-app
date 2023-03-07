@@ -275,7 +275,7 @@ function TerminalLoginPage() {
                                         opacity: "0.9"
                                     }
                                 }}
-                                    type="submit">
+                                    onClick={() => navigate('/')}>
                                     KAPAT
                                 </Button>
                             </Box>
@@ -283,7 +283,16 @@ function TerminalLoginPage() {
                         </form>
                     )}
                 </Formik>
-                <Typography sx={{ padding: "0 20px", textDecoration: "underline", display: "flex", justifyContent: "flex-end", color: "#C9464B" }}>Teknik Destek</Typography>
+                <Typography
+                    sx={{
+                        padding: "0 20px",
+                        textDecoration: "underline",
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        color: "#C9464B"
+                    }}>
+                    Teknik Destek
+                </Typography>
             </Box>
         </Box>
     )

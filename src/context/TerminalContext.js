@@ -63,6 +63,21 @@ export const TerminalProvider = ({ children }) => {
         }
     }
 
+    const [defectInnerPageData, setDefectInnerPageData] = useState(null);
+
+    async function getDefectInnerPageData(depCode, termName) {
+        try {
+            await axios.get(`/terminal/defectentry/${depCode}/${termName}/3070725/87897`)
+                .then(res => {
+                    const response = res.data;
+                    setDefectInnerPageData(response.data[0])
+                    console.log(response.data[0])
+                });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     const [selectedTerminal, setSelectedTerminal] = useState('');
 
     const terminaldata = {
@@ -79,7 +94,10 @@ export const TerminalProvider = ({ children }) => {
         getTerminalDefects,
         defectPageHeader,
         setDefectPageHeader,
-        getDefectPageHeader
+        getDefectPageHeader,
+        defectInnerPageData,
+        setDefectInnerPageData,
+        getDefectInnerPageData
     }
     return <TerminalContext.Provider value={terminaldata}>{children}</TerminalContext.Provider>
 }
