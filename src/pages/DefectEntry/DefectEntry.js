@@ -1,10 +1,11 @@
 import { Box, Container, Typography, Checkbox, FormControlLabel, TextField } from "@mui/material"
 import { useEffect, useContext } from "react"
 import { useParams, useLocation } from "react-router-dom";
-import ShiftContext from "../context/ShiftContext";
-import TerminalContext from "../context/TerminalContext"
-import DefectEntryButton from "../components/DefectEntryButton";
-import DefectImage from "../components/DefectImage";
+import ShiftContext from "../../context/ShiftContext";
+import TerminalContext from "../../context/TerminalContext"
+import DefectContext from "../../context/TerminalContext"
+import DefectEntryButton from "./components/DefectEntryButton";
+import DefectImage from "./components/DefectImage"
 
 function DefectEntry() {
 
@@ -16,8 +17,11 @@ function DefectEntry() {
 
     const { colors } = useContext(ShiftContext);
 
+    const { selectedDefectPart } = useContext(DefectContext)
+
+
     useEffect(() => {
-        console.log("defects", terminalDefects)
+        console.log("selectedDefect", selectedDefectPart)
         getTerminalDefects(depCode, termName)
         getDefectPageHeader(depCode, termName)
     }, [])
@@ -226,14 +230,20 @@ function DefectEntry() {
                                 justifyContent: "flex-end",
                                 color: "#C9464B"
                             }}>
+                            {/* {selectedDefectPart.defectName} */}
+                        </Typography>
+                        <Typography
+                            sx={{
+                                cursor: "pointer",
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                color: "#C9464B"
+                            }}>
                             Teknik Destek CVQS (TMMT)
                         </Typography>
                     </Box>
                 </Box>
             </Container>
-            {/* {terminalDefects.map((defect) => (
-                <div>{defect.labelText}</div>
-            ))} */}
         </>
     )
 }

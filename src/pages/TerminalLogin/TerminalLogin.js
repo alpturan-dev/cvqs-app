@@ -2,12 +2,12 @@ import React from 'react'
 import { Box, TextField, Typography, Button } from '@mui/material'
 import { useParams } from "react-router-dom";
 import { useContext, useEffect } from "react";
-import TerminalContext from "../context/TerminalContext";
-import ShiftContext from '../context/ShiftContext';
+import TerminalContext from "../../context/TerminalContext";
+import ShiftContext from '../../context/ShiftContext';
 import { Formik } from 'formik';
-import SelectBox from "../components/SelectBox";
-import ShiftBox from "../components/ShiftBox";
-import VirtualKeyboard from "../components/VirtualKeyboard";
+import SelectBox from "./components/SelectBox";
+import ShiftBox from "./components/ShiftBox";
+import VirtualKeyboard from "./components/VirtualKeyboard";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 

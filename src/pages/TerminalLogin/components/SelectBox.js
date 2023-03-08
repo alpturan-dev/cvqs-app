@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useState, useContext, useEffect } from "react";
-import TerminalContext from '../context/TerminalContext';
+import TerminalContext from '../../../context/TerminalContext';
 import { useFormikContext } from "formik";
 
 function SelectBox({ inputLabel, categories }) {
@@ -21,7 +21,7 @@ function SelectBox({ inputLabel, categories }) {
 
     return (
         <div>
-            <FormControl variant="filled" sx={{ minWidth: 200 }}>
+            <FormControl variant="filled" sx={{ minWidth: 200, color: "white" }}>
                 <InputLabel id="demo-simple-select-standard-label">{inputLabel}</InputLabel>
                 <Select
                     MenuProps={{
@@ -37,7 +37,6 @@ function SelectBox({ inputLabel, categories }) {
                     }}
                     value={selectedTerminal}
                     onChange={handleChange}
-                    color="secondary"
                 >
                     {categories.map((category, index) => (
                         <MenuItem value={category.termName} key={index}>{category.termName}</MenuItem>

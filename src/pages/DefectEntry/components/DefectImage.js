@@ -1,7 +1,8 @@
 import { Box, Typography } from '@mui/material'
 import { useState, useContext, useEffect } from 'react'
-import TerminalContext from '../context/TerminalContext';
-
+import DefectDropdown from './DefectDropdown';
+import TerminalContext from '../../../context/TerminalContext';
+import cursor from '../../../assets/navigation.png'
 function DefectImage({ terminalDefects, depCode, termName }) {
 
     const { defectInnerPageData, getDefectInnerPageData } = useContext(TerminalContext)
@@ -23,18 +24,56 @@ function DefectImage({ terminalDefects, depCode, termName }) {
         }
     }
 
+    const [dropdown, setDropdown] = useState("")
+
+    const handleDropdown = () => {
+        setDropdown(!dropdown)
+        console.log("handled")
+    }
+
+    const [arrow, setArrow] = useState({ x: "", y: "" })
+
+    function getPosition(el) {
+        var xPos = 0;
+        var yPos = 0;
+
+        while (el) {
+            // deal with browser quirks with body/window/document and page scroll
+            console.log("buraya girdim")
+            var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
+            var yScroll = el.scrollTop || document.documentElement.scrollTop;
+
+            xPos += (el.offsetLeft - xScroll + el.clientLeft);
+            yPos += (el.offsetTop - yScroll + el.clientTop);
+
+            el = el.offsetParent;
+        }
+        return {
+            x: xPos,
+            y: yPos
+        };
+    }
+    const handleArrow = (e) => {
+        var parentPosition = getPosition(e.currentTarget);
+        var xPosition = e.clientX - parentPosition.x;
+        var yPosition = e.clientY - parentPosition.y;
+        setArrow({ x: xPosition, y: yPosition })
+
+    }
+
     return (
         <>
             {innerScreen ?
-                <Box sx={{ height: "76%", border: "1px solid gray", position: "relative", backgroundImage: `url(${imageURL})` }}>
+                <Box onClick={(e) => handleArrow(e, e.clientX, e.clientY)} sx={{ width: "100%", height: "76%", border: "1px solid gray", position: "relative", backgroundImage: `url(${imageURL})` }}>
                     {defectInnerPageData.defectButtonRecords.map((defect) => {
                         return (
-                            (
+                            (<>
                                 <Box
-                                    onClick={() => handleInnerImage(defect.childPicID)}
+                                    onClick={handleDropdown}
                                     sx={{
+                                        display: dropdown ? "none" : "block",
                                         cursor: "pointer",
-                                        position: "absolute",
+                                        position: "relative",
                                         width: defect.boxWidth - 8,
                                         height: defect.boxHeight - 8,
                                         left: defect.boxX,
@@ -55,6 +94,26 @@ function DefectImage({ terminalDefects, depCode, termName }) {
                                         {defect.labelText}
                                     </Typography>
                                 </Box>
+                                <Box sx={{
+                                    cursor: "pointer",
+                                    position: "relative",
+                                    left: defect.boxX,
+                                    top: defect.boxY,
+                                }}>
+                                    <DefectDropdown visible={dropdown} categories={defectInnerPageData.partDefects} />
+                                </Box>
+                                <Box
+                                    sx={{
+                                        display: arrow.x !== "" ? "block" : "none",
+                                        position: "absolute",
+                                        width: "60px",
+                                        height: "60px",
+                                        top: arrow.y - 4,
+                                        left: arrow.x - 12
+                                    }}>
+                                    {<img src={cursor} alt='cursor' style={{ width: "100%", height: "100%" }} />}
+                                </Box>
+                            </>
                             )
                         )
                     })}
@@ -93,7 +152,8 @@ function DefectImage({ terminalDefects, depCode, termName }) {
                             )
                         })}
                     </Box>
-                )}
+                )
+            }
         </>
     )
 }

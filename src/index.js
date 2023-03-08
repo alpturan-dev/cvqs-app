@@ -6,6 +6,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter } from "react-router-dom";
 import { TerminalProvider } from "./context/TerminalContext";
 import { ShiftProvider } from "./context/ShiftContext";
+import { DefectProvider } from './context/DefectContext';
 
 if (process.env.NODE_ENV === 'development') {
     require('./mocks/browser')
@@ -29,13 +30,15 @@ const theme = createTheme({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-    <TerminalProvider>
-        <ShiftProvider>
-            <ThemeProvider theme={theme}>
-                <BrowserRouter>
-                    <App />
-                </BrowserRouter>
-            </ThemeProvider>
-        </ShiftProvider>
-    </TerminalProvider>
+    <DefectProvider>
+        <TerminalProvider>
+            <ShiftProvider>
+                <ThemeProvider theme={theme}>
+                    <BrowserRouter>
+                        <App />
+                    </BrowserRouter>
+                </ThemeProvider>
+            </ShiftProvider>
+        </TerminalProvider>
+    </DefectProvider>
 );

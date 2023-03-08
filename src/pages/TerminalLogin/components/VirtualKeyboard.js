@@ -1,7 +1,7 @@
 import React, { useRef, useState, useContext } from "react";
 import ReactDOM from "react-dom";
 import Keyboard from "react-simple-keyboard";
-import ShiftContext from "../context/ShiftContext";
+import ShiftContext from "../../../context/ShiftContext";
 import "react-simple-keyboard/build/css/index.css";
 import { useFormikContext } from "formik";
 

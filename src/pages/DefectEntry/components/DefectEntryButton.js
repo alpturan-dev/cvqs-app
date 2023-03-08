@@ -1,6 +1,6 @@
 import { Button, Typography } from "@mui/material"
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import TerminalContext from "../context/TerminalContext"
+import TerminalContext from "../../../context/TerminalContext"
 import { useContext } from "react";
 function DefectEntryButton({ label, disabled, type }) {
 

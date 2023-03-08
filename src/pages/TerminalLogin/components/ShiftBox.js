@@ -2,7 +2,7 @@ import DatePickerField from "./DatePickerField";
 import ShiftSelect from "./ShiftSelect";
 import { Box } from "@mui/material";
 import { useContext } from 'react'
-import ShiftContext from "../context/ShiftContext";
+import ShiftContext from "../../../context/ShiftContext";
 
 function ShiftBox() {
 
