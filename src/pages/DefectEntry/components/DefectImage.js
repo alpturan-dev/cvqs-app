@@ -71,7 +71,6 @@ function DefectImage({ terminalDefects, depCode, termName }) {
                                 <Box
                                     onClick={handleDropdown}
                                     sx={{
-                                        display: dropdown ? "none" : "block",
                                         cursor: "pointer",
                                         position: "relative",
                                         width: defect.boxWidth - 8,

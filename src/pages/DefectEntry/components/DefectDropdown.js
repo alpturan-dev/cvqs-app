@@ -4,32 +4,12 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { styled } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
+import { BootstrapInput } from './BootstrapInput';
 import DefectContext from '../../../context/DefectContext';
 
 function DefectDropdown({ visible, inputLabel, categories }) {
 
     const { selectedDefectPart, setSelectedDefectPart } = useContext(DefectContext)
-
-    const BootstrapInput = styled(InputBase)(({ theme }) => ({
-        '& .MuiInputBase-input': {
-            width: "100%",
-            height: "100%",
-            borderRadius: 4,
-            position: 'relative',
-            top: "0",
-            left: "0",
-            backgroundColor: theme.palette.background.paper,
-            fontSize: 16,
-            transition: theme.transitions.create(['border-color', 'box-shadow']),
-            '&:focus': {
-                borderRadius: 4,
-                borderColor: '#80bdff',
-                boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-            },
-        },
-    }));
 
     React.useEffect(() => {
         let filtered = categories.filter((defect, index) => index === 0 && defect)[0]
