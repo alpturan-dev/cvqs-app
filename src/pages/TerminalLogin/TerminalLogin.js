@@ -7,9 +7,10 @@ import ShiftContext from '../../context/ShiftContext';
 import { Formik } from 'formik';
 import SelectBox from "./components/SelectBox";
 import ShiftBox from "./components/ShiftBox";
-import VirtualKeyboard from "./components/VirtualKeyboard";
+import VirtualKeyboard from "../../components/VirtualKeyboard";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import KeyboardContext from '../../context/KeyboardContext';
 
 function TerminalLoginPage() {
 
@@ -18,7 +19,7 @@ function TerminalLoginPage() {
     const handleDefectEntry = (depCode, termName, values) => {
         navigate(`/terminal/defectentry/${depCode}/${termName}/3070725`, { state: values });
     }
-    const { filteredTerminals, getFilteredTerminals, selectedTerminal, setSelectedTerminal } = useContext(TerminalContext);
+    const { filteredTerminals, getFilteredTerminals, selectedTerminal } = useContext(TerminalContext);
     const {
         sicilNo,
         setSicilNo,
@@ -26,13 +27,11 @@ function TerminalLoginPage() {
         setPassword,
         montajNo,
         setMontajNo,
-        field,
-        setField,
         date,
-        setDate,
         shift,
-        setShift
     } = useContext(ShiftContext);
+
+    const { field, setField } = useContext(KeyboardContext);
 
     useEffect(() => {
         getFilteredTerminals(depCode, termName);
@@ -44,22 +43,17 @@ function TerminalLoginPage() {
 
     const keyboard = useRef();
 
-    const onChangeSicil = event => {
+    const onChangeField = event => {
         const input = event.target.value;
-        setSicilNo(input);
+        if (event.target.id === "sicilNo") {
+            setSicilNo(input);
+        } else if (event.target.id === "password") {
+            setPassword(input);
+        } else if (event.target.id === "montajNo") {
+            setMontajNo(input);
+        }
         keyboard.current.setInput(input);
     };
-    const onChangePassword = event => {
-        const input = event.target.value;
-        setPassword(input);
-        keyboard.current.setInput(input);
-    };
-    const onChangeMontaj = event => {
-        const input = event.target.value;
-        setMontajNo(input);
-        keyboard.current.setInput(input);
-    };
-
 
     return (
         <Box sx={{
@@ -127,13 +121,12 @@ function TerminalLoginPage() {
                     }}
                     onSubmit={(values) => {
                         setTimeout(() => {
-                            setSelectedTerminal(values.selectedTerminal)
-                            setSicilNo(values.sicilNo)
-                            setPassword(values.password)
-                            setMontajNo(values.montajNo)
-                            setDate(values.date)
-                            setShift(values.shift)
-                            // alert(JSON.stringify(values, null, 2));
+                            // setSelectedTerminal(values.selectedTerminal)
+                            // setSicilNo(values.sicilNo)
+                            // setPassword(values.password)
+                            // setMontajNo(values.montajNo)
+                            // setDate(values.date)
+                            // setShift(values.shift) 
                             handleDefectEntry(depCode, termName, values);
                         }, 600);
                     }}
@@ -149,19 +142,10 @@ function TerminalLoginPage() {
                                 margin: "20px auto"
                             }}
                         >
-                            <Box sx={{
-                                width: "450px",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                gap: "40px"
-                            }}>
-                                <Typography>Terminal Listesi</Typography>
-                                <SelectBox
-                                    inputLabel='Terminal'
-                                    categories={filteredTerminals}
-                                />
-                            </Box>
+                            <SelectBox
+                                inputLabel='Terminal'
+                                categories={filteredTerminals}
+                            />
                             <Box sx={{
                                 width: "450px",
                                 display: "flex",
@@ -181,8 +165,7 @@ function TerminalLoginPage() {
                                     value={sicilNo}
                                     onBlur={props.handleBlur}
                                     onChange={(e) => {
-                                        onChangeSicil(e)
-                                        setSicilNo(e.target.value)
+                                        onChangeField(e)
                                         props.handleChange(e);
                                     }}
                                     error={props.errors.sicilNo && props.touched.sicilNo && true}
@@ -199,7 +182,7 @@ function TerminalLoginPage() {
                                 <Typography>Şifre</Typography>
                                 <TextField
                                     sx={{ minWidth: "200px" }}
-                                    onClick={handleField}
+                                    onFocus={handleField}
                                     variant="filled"
                                     type="password"
                                     name="password"
@@ -207,8 +190,7 @@ function TerminalLoginPage() {
                                     autoComplete=''
                                     value={password}
                                     onChange={(e) => {
-                                        onChangePassword(e)
-                                        setPassword(e.target.value)
+                                        onChangeField(e)
                                         props.handleChange(e);
                                     }}
                                     onBlur={props.handleBlur}
@@ -226,7 +208,7 @@ function TerminalLoginPage() {
                                 <Typography>Montaj No</Typography>
                                 <TextField
                                     sx={{ minWidth: "200px" }}
-                                    onClick={handleField}
+                                    onFocus={handleField}
                                     variant="filled"
                                     label="Montaj No"
                                     type="montajNo"
@@ -235,8 +217,7 @@ function TerminalLoginPage() {
                                     autoComplete="off"
                                     value={montajNo}
                                     onChange={(e) => {
-                                        onChangeMontaj(e)
-                                        setMontajNo(e.target.value)
+                                        onChangeField(e)
                                         props.handleChange(e);
                                     }}
                                     onBlur={props.handleBlur}
@@ -263,18 +244,19 @@ function TerminalLoginPage() {
                                 >
                                     GİRİŞ YAP
                                 </Button>
-                                <Button sx={{
-                                    width: "200px",
-                                    color: "#eee",
-                                    fontSize: "1rem",
-                                    backgroundColor: "primary.red",
-                                    padding: "15px 0px",
-                                    boxShadow: "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
-                                    '&:hover': {
+                                <Button
+                                    sx={{
+                                        width: "200px",
+                                        color: "#eee",
+                                        fontSize: "1rem",
                                         backgroundColor: "primary.red",
-                                        opacity: "0.9"
-                                    }
-                                }}
+                                        padding: "15px 0px",
+                                        boxShadow: "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+                                        '&:hover': {
+                                            backgroundColor: "primary.red",
+                                            opacity: "0.9"
+                                        }
+                                    }}
                                     onClick={() => navigate('/')}>
                                     KAPAT
                                 </Button>

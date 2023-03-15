@@ -21,12 +21,24 @@ export const DefectProvider = ({ children }) => {
         }
     }
 
+    const [innerScreen, setInnerScreen] = useState(false);
+
+    const [defectSelected, setDefectSelected] = useState(false)
+
+    const [arrow, setArrow] = useState({ x: "", y: "" })
+
     const defectdata = {
         selectedDefectPart,
         setSelectedDefectPart,
         defectList,
         setDefectList,
-        getDefectList
+        getDefectList,
+        innerScreen,
+        setInnerScreen,
+        defectSelected,
+        setDefectSelected,
+        arrow,
+        setArrow
     }
 
     return <DefectContext.Provider value={defectdata}>{children}</DefectContext.Provider>

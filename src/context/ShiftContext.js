@@ -15,7 +15,6 @@ export const ShiftProvider = ({ children }) => {
     const [sicilNo, setSicilNo] = useState("");
     const [password, setPassword] = useState("");
     const [montajNo, setMontajNo] = useState("");
-    const [field, setField] = useState("");
     const [date, setDate] = useState(dayjs(new Date()));
     const [shift, setShift] = useState(colors[0].name);
     const shiftdata = {
@@ -30,8 +29,6 @@ export const ShiftProvider = ({ children }) => {
         setPassword,
         montajNo,
         setMontajNo,
-        field,
-        setField,
         date,
         setDate,
         shift,

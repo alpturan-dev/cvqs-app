@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Box, Typography } from '@mui/material'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -18,9 +19,15 @@ function SelectBox({ inputLabel, categories }) {
         setSelectedTerminal(e.target.value)
     }
 
-
     return (
-        <div>
+        <Box sx={{
+            width: "450px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "40px"
+        }}>
+            <Typography>{inputLabel}</Typography>
             <FormControl variant="filled" sx={{ minWidth: 200, color: "white" }}>
                 <InputLabel id="demo-simple-select-standard-label">{inputLabel}</InputLabel>
                 <Select
@@ -43,7 +50,7 @@ function SelectBox({ inputLabel, categories }) {
                     ))}
                 </Select>
             </FormControl>
-        </div>
+        </Box>
     );
 }
 

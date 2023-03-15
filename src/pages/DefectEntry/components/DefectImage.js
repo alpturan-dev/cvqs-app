@@ -1,8 +1,10 @@
 import { Box, Typography } from '@mui/material'
 import { useState, useContext, useEffect } from 'react'
-import DefectDropdown from './DefectDropdown';
+import DefectSelect from './DefectSelect';
 import TerminalContext from '../../../context/TerminalContext';
 import cursor from '../../../assets/navigation.png'
+import DefectContext from '../../../context/DefectContext';
+import GetPosition from '../../../utils/GetPosition';
 function DefectImage({ terminalDefects, depCode, termName }) {
 
     const { defectInnerPageData, getDefectInnerPageData } = useContext(TerminalContext)
@@ -11,7 +13,7 @@ function DefectImage({ terminalDefects, depCode, termName }) {
         getDefectInnerPageData(depCode, termName);
     }, [])
 
-    const [innerScreen, setInnerScreen] = useState(false);
+    const { setDefectSelected, arrow, setArrow, innerScreen, setInnerScreen } = useContext(DefectContext)
 
     const [imageURL, setImageURL] = useState("https://ikinciyeniblogfles.blob.core.windows.net/images/3e9cd9c7-0995-4859-90c9-1015f75cf686.jpg");
 
@@ -28,37 +30,40 @@ function DefectImage({ terminalDefects, depCode, termName }) {
 
     const handleDropdown = () => {
         setDropdown(!dropdown)
-        console.log("handled")
     }
 
-    const [arrow, setArrow] = useState({ x: "", y: "" })
 
-    function getPosition(el) {
-        var xPos = 0;
-        var yPos = 0;
-
-        while (el) {
-            // deal with browser quirks with body/window/document and page scroll
-            console.log("buraya girdim")
-            var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
-            var yScroll = el.scrollTop || document.documentElement.scrollTop;
-
-            xPos += (el.offsetLeft - xScroll + el.clientLeft);
-            yPos += (el.offsetTop - yScroll + el.clientTop);
-
-            el = el.offsetParent;
+    useEffect(() => {
+        if (arrow.x !== "") {
+            setDefectSelected(true);
         }
-        return {
-            x: xPos,
-            y: yPos
-        };
-    }
+    }, [arrow])
+
+    // function getPosition(el) {
+    //     var xPos = 0;
+    //     var yPos = 0;
+
+    //     while (el) {
+    //         // deal with browser quirks with body/window/document and page scroll
+    //         var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
+    //         var yScroll = el.scrollTop || document.documentElement.scrollTop;
+
+    //         xPos += (el.offsetLeft - xScroll + el.clientLeft);
+    //         yPos += (el.offsetTop - yScroll + el.clientTop);
+
+    //         el = el.offsetParent;
+    //     }
+    //     return {
+    //         x: xPos,
+    //         y: yPos
+    //     };
+    // }
+
     const handleArrow = (e) => {
-        var parentPosition = getPosition(e.currentTarget);
+        var parentPosition = GetPosition(e.currentTarget);
         var xPosition = e.clientX - parentPosition.x;
         var yPosition = e.clientY - parentPosition.y;
         setArrow({ x: xPosition, y: yPosition })
-
     }
 
     return (
@@ -71,6 +76,7 @@ function DefectImage({ terminalDefects, depCode, termName }) {
                                 <Box
                                     onClick={handleDropdown}
                                     sx={{
+                                        display: dropdown ? "none" : "block",
                                         cursor: "pointer",
                                         position: "relative",
                                         width: defect.boxWidth - 8,
@@ -99,7 +105,7 @@ function DefectImage({ terminalDefects, depCode, termName }) {
                                     left: defect.boxX,
                                     top: defect.boxY,
                                 }}>
-                                    <DefectDropdown visible={dropdown} categories={defectInnerPageData.partDefects} />
+                                    <DefectSelect visible={dropdown} categories={defectInnerPageData.partDefects} />
                                 </Box>
                                 <Box
                                     sx={{

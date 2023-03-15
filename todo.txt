@@ -5,3 +5,7 @@ Fieldlardaki bugu duzelt. DONE
 Warning var shift degistirirken duzelt. DONE
 Mocks icerisinde diger requestleri de mock yap. DONE
 Defect entry sayfa tasarimi
+Defect Entry modal vs yapip bitir!
+Buyuk Font Basla
+
+Klavyenin hangi fieldda oldugunu degistiren fonskiyonda hook call hatasi aliyorum?

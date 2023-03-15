@@ -7,7 +7,7 @@ import Select from '@mui/material/Select';
 import { BootstrapInput } from './BootstrapInput';
 import DefectContext from '../../../context/DefectContext';
 
-function DefectDropdown({ visible, inputLabel, categories }) {
+function DefectSelect({ visible, inputLabel, categories }) {
 
     const { selectedDefectPart, setSelectedDefectPart } = useContext(DefectContext)
 
@@ -48,4 +48,4 @@ function DefectDropdown({ visible, inputLabel, categories }) {
     );
 }
 
-export default DefectDropdown
+export default DefectSelect

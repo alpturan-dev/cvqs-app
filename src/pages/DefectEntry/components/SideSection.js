@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import DefectContext from '../../../context/DefectContext'
 import { Box, Typography, FormControlLabel, Checkbox, TextField } from '@mui/material'
 import DefectEntryButton from '../../../components/CustomButton'
 
 function SideSection({ defectPageHeader, selectedDefectPart }) {
+
+    const { defectSelected } = useContext(DefectContext)
+
     return (
         <Box
             sx={{
@@ -70,7 +74,7 @@ function SideSection({ defectPageHeader, selectedDefectPart }) {
             </Box>
             <DefectEntryButton disabled="disabled" label="HIZLI KAYDET" />
             <DefectEntryButton disabled="disabled" label="KAYDET VE GEÇ" />
-            <DefectEntryButton disabled="disabled" label="HATA KAYIT" />
+            <DefectEntryButton type="defectModal" disabled={!defectSelected && "disabled"} label="HATA KAYIT" />
             <Box sx={{
                 display: "flex",
                 flexDirection: "column",

@@ -86,18 +86,18 @@ export default function App({ defectList }) {
         //     dataKey: 'arcnutboltgunId',
         //     numeric: true,
         // },
-        {
-            width: 70,
-            label: 'Hata',
-            dataKey: 'defectReason',
-            numeric: true,
-        },
-        {
-            width: 40,
-            label: 'Rank',
-            dataKey: 'defRankCode',
-            numeric: true,
-        },
+        // {
+        //     width: 70,
+        //     label: 'Hata',
+        //     dataKey: 'defectReason',
+        //     numeric: true,
+        // },
+        // {
+        //     width: 40,
+        //     label: 'Rank',
+        //     dataKey: 'defRankCode',
+        //     numeric: true,
+        // },
         {
             width: 40,
             label: 'Saat',

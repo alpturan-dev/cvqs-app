@@ -2,14 +2,22 @@ import { Button, Typography } from "@mui/material"
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import DefectContext from "../context/DefectContext";
+import ModalContext from "../context/ModalContext";
 
 function CustomButton({ label, disabled, type }) {
     const navigate = useNavigate();
     let { depCode, termName } = useParams();
 
+    const { openModal, setOpenModal } = useContext(ModalContext)
+
     const handleDefectList = () => {
-        if (label === "HATA LİSTESİ") {
+        if (type === "defectList") {
             navigate(`/terminal/defcorrect/${depCode}/${termName}`);
+        } else if (type === "defectModal") {
+            console.log("modal opened")
+            setOpenModal(true)
         }
     }
 

@@ -1,9 +1,10 @@
 import React, { useRef, useState, useContext } from "react";
 import ReactDOM from "react-dom";
 import Keyboard from "react-simple-keyboard";
-import ShiftContext from "../../../context/ShiftContext";
+import ShiftContext from "../context/ShiftContext";
 import "react-simple-keyboard/build/css/index.css";
 import { useFormikContext } from "formik";
+import ModalContext from "../context/ModalContext";
 
 function VirtualKeyboard({ field, keyboard }) {
     const [layout, setLayout] = useState("default");
@@ -24,6 +25,8 @@ function VirtualKeyboard({ field, keyboard }) {
 
     const { setSicilNo, setPassword, setMontajNo } = useContext(ShiftContext)
 
+    const { setDescription, setActionTaken } = useContext(ModalContext)
+
     const { setFieldValue } = useFormikContext();
 
     function onKeyboardChange(input) {
@@ -36,6 +39,12 @@ function VirtualKeyboard({ field, keyboard }) {
         } else if (field === "montajNo") {
             setMontajNo(input)
             setFieldValue('montajNo', input)
+        } else if (field === "description") {
+            setDescription(input)
+            setFieldValue('description', input)
+        } else if (field === "actionTaken") {
+            setActionTaken(input)
+            setFieldValue('actionTaken', input)
         }
     };
 

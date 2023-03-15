@@ -5,10 +5,13 @@ import ShiftContext from "../../context/ShiftContext";
 import TerminalContext from "../../context/TerminalContext"
 import DefectContext from "../../context/TerminalContext"
 import DefectEntryButton from "../../components/CustomButton";
+import DefectModal from './components/DefectModal'
 import DefectImage from "./components/DefectImage"
 import BottomSection from "./components/BottomSection";
 import SideSection from "./components/SideSection";
 import TopSection from "./components/TopSection";
+import toast, { Toaster } from 'react-hot-toast';
+
 function DefectEntry() {
 
     let { depCode, termName } = useParams();
@@ -23,7 +26,7 @@ function DefectEntry() {
 
 
     useEffect(() => {
-        console.log("selectedDefect", selectedDefectPart)
+        console.log("values", state)
         getTerminalDefects(depCode, termName)
         getDefectPageHeader(depCode, termName)
     }, [])
@@ -37,6 +40,7 @@ function DefectEntry() {
                     height: "100vh",
                     display: "flex",
                 }}>
+                <Toaster />
                 <Box sx={{
                     width: "100%",
                     border: "2px solid #ddd",
@@ -44,6 +48,7 @@ function DefectEntry() {
                     display: "flex",
                     boxShadow: "rgb(38, 57, 77) 0px 20px 30px -10px"
                 }}>
+                    <DefectModal depCode={depCode} termName={termName} loginData={state} />
                     <Box
                         sx={{
                             padding: "0px 10px",

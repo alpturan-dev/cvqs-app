@@ -7,7 +7,8 @@ import { BrowserRouter } from "react-router-dom";
 import { TerminalProvider } from "./context/TerminalContext";
 import { ShiftProvider } from "./context/ShiftContext";
 import { DefectProvider } from './context/DefectContext';
-
+import { ModalProvider } from './context/ModalContext';
+import { KeyboardProvider } from './context/KeyboardContext';
 if (process.env.NODE_ENV === 'development') {
     require('./mocks/browser')
 }
@@ -30,15 +31,19 @@ const theme = createTheme({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-    <DefectProvider>
-        <TerminalProvider>
-            <ShiftProvider>
-                <ThemeProvider theme={theme}>
-                    <BrowserRouter>
-                        <App />
-                    </BrowserRouter>
-                </ThemeProvider>
-            </ShiftProvider>
-        </TerminalProvider>
-    </DefectProvider>
+    <KeyboardProvider>
+        <ModalProvider>
+            <DefectProvider>
+                <TerminalProvider>
+                    <ShiftProvider>
+                        <ThemeProvider theme={theme}>
+                            <BrowserRouter>
+                                <App />
+                            </BrowserRouter>
+                        </ThemeProvider>
+                    </ShiftProvider>
+                </TerminalProvider>
+            </DefectProvider>
+        </ModalProvider>
+    </KeyboardProvider>
 );
