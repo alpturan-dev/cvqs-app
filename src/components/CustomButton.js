@@ -12,18 +12,23 @@ function CustomButton({ label, disabled, type }) {
 
     const { openModal, setOpenModal } = useContext(ModalContext)
 
-    const handleDefectList = () => {
+    const { handleLargeFont, setLargeFont } = useContext(DefectContext)
+
+    const handleClick = () => {
         if (type === "defectList") {
             navigate(`/terminal/defcorrect/${depCode}/${termName}`);
         } else if (type === "defectModal") {
-            console.log("modal opened")
             setOpenModal(true)
+        } else if (type === "largeFont") {
+            setLargeFont(true);
+        } else if (type === "HATA GİRİŞ") {
+            setLargeFont(false)
         }
     }
 
     return (
         <Button
-            onClick={handleDefectList}
+            onClick={handleClick}
             disabled={disabled && true}
             sx={{
                 width: "100%",

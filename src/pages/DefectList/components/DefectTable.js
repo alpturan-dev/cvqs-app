@@ -174,9 +174,9 @@ export default function App({ defectList }) {
                     </TableRow>
                 )
             }}
-            itemContent={(index, item) => {
+            itemContent={(i, item) => {
                 return (
-                    columns.map((column) => {
+                    columns.map((column, index) => {
                         switch (column.dataKey) {
                             case "colorExtCode":
                                 return (

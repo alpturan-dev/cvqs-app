@@ -10,7 +10,6 @@ function App() {
             <Route path="/terminal/:depCode/:termName" element={<TerminalLogin />} />
             <Route path="/terminal/defectentry/:depCode/:termName/3070725" element={<DefectEntry />} />
             <Route path="/terminal/defcorrect/:depCode/:termName" element={<DefectList />} />
-
         </Routes>
     );
 }

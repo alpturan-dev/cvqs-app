@@ -30,10 +30,10 @@ function VirtualKeyboard({ field, keyboard }) {
     const { setFieldValue } = useFormikContext();
 
     function onKeyboardChange(input) {
-        if (field === "registrationNo" || "password" || "assemblyNo") {
+        if (field === "registrationNo" || field === "password" || field === "assemblyNo") {
             setLoginForm({ ...loginForm, [field]: input })
             setFieldValue(field, input)
-        } else if (field === "description" || "actionTaken") {
+        } else if (field === "description" || field === "actionTaken") {
             setModalForm({ ...modalForm, [field]: input })
             setFieldValue(field, input)
         }

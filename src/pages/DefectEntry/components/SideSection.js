@@ -76,13 +76,15 @@ function SideSection({ defectPageHeader }) {
                     sx={{
                         fontWeight: "bolder"
                     }}
-                >MONTAJ NO</Typography>
+                >
+                    MONTAJ NO
+                </Typography>
                 <TextField
                     sx={{
                         width: "100%",
                     }}
                     autoComplete="off"
-                    value={defectPageHeader.assyNo}
+                // value={defectPageHeader.assyNo}
                 />
             </Box>
             <DefectEntryButton label="ARA" />

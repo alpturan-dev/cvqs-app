@@ -42,7 +42,6 @@ export default function DefectModal({ depCode, termName, loginData }) {
 
     React.useEffect(() => {
         getModalData(depCode, termName);
-        console.log("modalData", modalData)
     }, [])
 
     const {
@@ -57,7 +56,6 @@ export default function DefectModal({ depCode, termName, loginData }) {
     const handleClose = () => setOpenModal(false);
 
     const handleField = (event) => {
-        console.log("field degisti", event.target.id)
         setField(event.target.id)
     }
 
@@ -116,7 +114,7 @@ export default function DefectModal({ depCode, termName, loginData }) {
                         }}
                         onSubmit={(values) => {
                             setTimeout(() => {
-                                console.log('modal values', Object.assign(newDefectData, Object.assign(loginData, values)));
+                                console.log('Defect Modal Values', Object.assign(newDefectData, Object.assign(loginData, values)));
                                 toast.success('Hata kaydedildi!');
                                 handleClose();
                                 closeInnerScreen();

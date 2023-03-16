@@ -1,9 +1,9 @@
-import { Box, Container, Typography, Checkbox, FormControlLabel, TextField } from "@mui/material"
-import { useEffect, useContext } from "react"
+import { useEffect, useContext, useState } from "react"
 import { useParams, useLocation } from "react-router-dom";
+import { Box, Container, Typography, Checkbox, FormControlLabel, TextField } from "@mui/material"
 import ShiftContext from "../../context/ShiftContext";
 import TerminalContext from "../../context/TerminalContext"
-import DefectContext from "../../context/TerminalContext"
+import DefectContext from "../../context/DefectContext"
 import DefectEntryButton from "../../components/CustomButton";
 import DefectModal from './components/DefectModal'
 import DefectImage from "./components/DefectImage"
@@ -13,6 +13,7 @@ import TopSection from "./components/TopSection";
 import toast, { Toaster } from 'react-hot-toast';
 import { slide as Menu } from 'react-burger-menu'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import LargeFont from "./components/LargeFont";
 function DefectEntry() {
 
     let { depCode, termName } = useParams();
@@ -23,11 +24,10 @@ function DefectEntry() {
 
     const { colors } = useContext(ShiftContext);
 
-    const { selectedDefectPart } = useContext(DefectContext)
-
+    const { selectedDefectPart, largeFont, setLargeFont } = useContext(DefectContext)
 
     useEffect(() => {
-        console.log("values", state)
+        console.log("Login Form Data", state)
         getTerminalDefects(depCode, termName)
         getDefectPageHeader(depCode, termName)
     }, [])
@@ -37,7 +37,7 @@ function DefectEntry() {
             position: 'absolute',
             width: '40px',
             height: '40px',
-            right: '5%',
+            right: '1%',
             top: '50%'
         },
         bmBurgerBars: {
@@ -89,7 +89,8 @@ function DefectEntry() {
                 disableGutters
                 maxWidth="lg"
                 sx={{
-                    height: "100vh",
+                    marginTop: "10px",
+                    height: "95vh",
                     display: "flex",
                 }}>
                 <Toaster />
@@ -105,37 +106,49 @@ function DefectEntry() {
                     <Box
                         sx={{
                             padding: { lg: "0px 10px" },
-                            width: { xs: "100%", sm: "100%", md: "100%", lg: "80%" },
+                            width: { xs: "100%", sm: "100%", md: "100%", lg: largeFont ? "100%" : "80%" },
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
                             backgroundColor: "#eee",
                         }}
                     >
-                        <TopSection defectPageHeader={defectPageHeader} colors={colors} state={state} />
-                        <DefectImage terminalDefects={terminalDefects} depCode={depCode} termName={termName} />
-                        <BottomSection />
+                        {largeFont ? (
+                            <LargeFont depCode={depCode} termName={termName} defectPageHeader={defectPageHeader} colors={colors} state={state} />
+                        ) : (
+                            <>
+                                <TopSection defectPageHeader={defectPageHeader} colors={colors} state={state} />
+                                <DefectImage terminalDefects={terminalDefects} depCode={depCode} termName={termName} />
+                                <BottomSection />
+                            </>
+                        )}
+
                     </Box>
-                    <Box
-                        sx={{
-                            display: { xs: "flex", sm: "flex", md: "flex", lg: "none" },
-                        }}>
-                        <Menu right width={300} customBurgerIcon={<ArrowBackIosNewIcon />} styles={styles}>
-                            <SideSection defectPageHeader={defectPageHeader} selectedDefectPart={selectedDefectPart} />
-                        </Menu>
-                    </Box>
-                    <Box
-                        sx={{
-                            width: "20%",
-                            backgroundColor: "#eee",
-                            padding: "15px 15px",
-                            display: { xs: "none", sm: "none", md: "none", lg: "flex" },
-                            gap: "20px",
-                            flexDirection: "column",
-                            alignItems: "center",
-                        }}>
-                        <SideSection defectPageHeader={defectPageHeader} selectedDefectPart={selectedDefectPart} />
-                    </Box>
+                    {!largeFont && (
+                        <>
+                            <Box
+                                sx={{
+                                    display: { xs: "flex", sm: "flex", md: "flex", lg: "none" },
+                                }}>
+                                <Menu right width={300} customBurgerIcon={<ArrowBackIosNewIcon />} styles={styles}>
+                                    <SideSection defectPageHeader={defectPageHeader} selectedDefectPart={selectedDefectPart} />
+                                </Menu>
+                            </Box>
+                            <Box
+                                sx={{
+                                    width: "20%",
+                                    backgroundColor: "#eee",
+                                    padding: "15px 15px",
+                                    display: { xs: "none", sm: "none", md: "none", lg: "flex" },
+                                    gap: "20px",
+                                    flexDirection: "column",
+                                    alignItems: "center",
+                                }}>
+                                <SideSection defectPageHeader={defectPageHeader} selectedDefectPart={selectedDefectPart} />
+                            </Box>
+                        </>
+                    )}
+
                 </Box>
             </Container>
         </>

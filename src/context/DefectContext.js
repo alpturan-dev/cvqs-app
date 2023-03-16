@@ -48,6 +48,26 @@ export const DefectProvider = ({ children }) => {
 
     const [arrow, setArrow] = useState({ x: "", y: "" })
 
+    const [largeFont, setLargeFont] = useState(false);
+
+    const handleLargeFont = () => {
+        setLargeFont(true)
+    }
+
+    const [largeFontData, setLargeFontData] = useState({})
+
+    async function getLargeFontData(depCode, termName) {
+        try {
+            await axios.get(`/terminal/defectentry/${depCode}/${termName}/3070725/largeFont`)
+                .then(res => {
+                    const response = res;
+                    setLargeFontData(response.data.data)
+                });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     const defectdata = {
         selectedDefectPart,
         setSelectedDefectPart,
@@ -63,7 +83,13 @@ export const DefectProvider = ({ children }) => {
         defectSelected,
         setDefectSelected,
         arrow,
-        setArrow
+        setArrow,
+        largeFont,
+        setLargeFont,
+        handleLargeFont,
+        largeFontData,
+        setLargeFontData,
+        getLargeFontData
     }
 
     return <DefectContext.Provider value={defectdata}>{children}</DefectContext.Provider>

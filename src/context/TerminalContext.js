@@ -41,7 +41,6 @@ export const TerminalProvider = ({ children }) => {
                 .then(res => {
                     const response = res.data;
                     setTerminalDefects(response.data[0].defectButtonRecords)
-                    //console.log(response.data[0].defectButtonRecords)
                 });
         } catch (error) {
             console.error(error);
@@ -56,7 +55,6 @@ export const TerminalProvider = ({ children }) => {
                 .then(res => {
                     const response = res.data;
                     setDefectPageHeader(response.data[0])
-                    console.log(response.data[0])
                 });
         } catch (error) {
             console.error(error);
@@ -71,7 +69,6 @@ export const TerminalProvider = ({ children }) => {
                 .then(res => {
                     const response = res.data;
                     setDefectInnerPageData(response.data[0])
-                    console.log(response.data[0])
                 });
         } catch (error) {
             console.error(error);
