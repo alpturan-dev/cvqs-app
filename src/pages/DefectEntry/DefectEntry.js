@@ -13,8 +13,27 @@ import TopSection from "./components/TopSection";
 import toast, { Toaster } from 'react-hot-toast';
 import { slide as Menu } from 'react-burger-menu'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import warning from '../../assets/warning-audio.mp3'
 import LargeFont from "./components/LargeFont";
 function DefectEntry() {
+    // const [active, setActive] = useState('Active')
+    // const [remaining, setRemaining] = useState(0)
+
+    // const onIdle = () => {
+    //     setActive('Idle')
+    // }
+
+    // const onActive = () => {
+    //     setActive('Active')
+    // }
+
+    // const { getRemainingTime } = useIdleTimer({
+    //     onIdle,
+    //     onActive,
+    //     timeout: 10_000,
+    //     throttle: 500
+    // })
+
 
     let { depCode, termName } = useParams();
 
@@ -24,8 +43,16 @@ function DefectEntry() {
 
     const { colors } = useContext(ShiftContext);
 
-    const { selectedDefectPart, largeFont, setLargeFont } = useContext(DefectContext)
+    const { selectedDefectPart, largeFont, setLargeFont, active, remaining, getRemainingTime, setRemaining } = useContext(DefectContext)
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setRemaining(Math.ceil(getRemainingTime() / 1000))
+        }, 500)
 
+        return () => {
+            clearInterval(interval)
+        }
+    }, [active, remaining])
     useEffect(() => {
         console.log("Login Form Data", state)
         getTerminalDefects(depCode, termName)
@@ -84,22 +111,28 @@ function DefectEntry() {
         }
     }
     return (
-        <>
+        <Box sx={{ backgroundColor: !active && "red", height: "100vh" }}>
             <Container
                 disableGutters
                 maxWidth="lg"
                 sx={{
-                    marginTop: "10px",
+                    paddingTop: "10px",
                     height: "95vh",
                     display: "flex",
                 }}>
                 <Toaster />
+                {!active && (
+                    <audio style={{ display: "none" }} controls autoPlay>
+                        <source src={warning} type="audio/mpeg" />
+                    </audio>
+                )}
                 <Box sx={{
                     width: "100%",
                     border: "2px solid #ddd",
                     borderRadius: "10px",
                     display: "flex",
                     flexDirection: "row",
+                    backgroundColor: "#eee",
                     boxShadow: "rgb(38, 57, 77) 0px 20px 30px -10px"
                 }}>
                     <DefectModal depCode={depCode} termName={termName} loginData={state} />
@@ -110,7 +143,6 @@ function DefectEntry() {
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
-                            backgroundColor: "#eee",
                         }}
                     >
                         {largeFont ? (
@@ -151,7 +183,7 @@ function DefectEntry() {
 
                 </Box>
             </Container>
-        </>
+        </Box>
     )
 }
 export default DefectEntry

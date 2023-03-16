@@ -1,5 +1,6 @@
 import { useState, createContext } from "react";
 import axios from "axios";
+import { useIdleTimer } from 'react-idle-timer'
 
 const DefectContext = createContext();
 
@@ -68,6 +69,25 @@ export const DefectProvider = ({ children }) => {
         }
     }
 
+    const [active, setActive] = useState(true)
+    const [remaining, setRemaining] = useState(0)
+
+    const onIdle = () => {
+        setActive(false)
+
+    }
+
+    const onActive = () => {
+        setActive(true)
+    }
+
+    const { getRemainingTime } = useIdleTimer({
+        onIdle,
+        onActive,
+        timeout: 70_000,
+        throttle: 500
+    })
+
     const defectdata = {
         selectedDefectPart,
         setSelectedDefectPart,
@@ -89,7 +109,12 @@ export const DefectProvider = ({ children }) => {
         handleLargeFont,
         largeFontData,
         setLargeFontData,
-        getLargeFontData
+        getLargeFontData,
+        active,
+        setActive,
+        getRemainingTime,
+        remaining,
+        setRemaining
     }
 
     return <DefectContext.Provider value={defectdata}>{children}</DefectContext.Provider>
