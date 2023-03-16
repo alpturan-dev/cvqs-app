@@ -11,7 +11,8 @@ import BottomSection from "./components/BottomSection";
 import SideSection from "./components/SideSection";
 import TopSection from "./components/TopSection";
 import toast, { Toaster } from 'react-hot-toast';
-
+import { slide as Menu } from 'react-burger-menu'
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 function DefectEntry() {
 
     let { depCode, termName } = useParams();
@@ -31,12 +32,63 @@ function DefectEntry() {
         getDefectPageHeader(depCode, termName)
     }, [])
 
+    var styles = {
+        bmBurgerButton: {
+            position: 'absolute',
+            width: '40px',
+            height: '40px',
+            right: '5%',
+            top: '50%'
+        },
+        bmBurgerBars: {
+            background: '#373a47'
+        },
+        bmBurgerBarsHover: {
+            background: '#a90000'
+        },
+        bmCrossButton: {
+            height: '24px',
+            width: '24px'
+        },
+        bmCross: {
+            background: '#bdc3c7'
+        },
+        bmMenuWrap: {
+            position: 'fixed',
+            height: '100%'
+        },
+        bmMenu: {
+            background: '#eee',
+            padding: '20px 10px',
+            border: "2px solid #ddd",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+        },
+        bmMorphShape: {
+            fill: '#373a47'
+        },
+        bmItemList: {
+            width: "80%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            gap: "20px"
+        },
+        bmItem: {
+            display: 'flex'
+        },
+        bmOverlay: {
+            background: 'rgba(0, 0, 0, 0.3)'
+        }
+    }
     return (
         <>
             <Container
+                disableGutters
                 maxWidth="lg"
                 sx={{
-                    padding: "20px 0",
                     height: "100vh",
                     display: "flex",
                 }}>
@@ -46,15 +98,17 @@ function DefectEntry() {
                     border: "2px solid #ddd",
                     borderRadius: "10px",
                     display: "flex",
+                    flexDirection: "row",
                     boxShadow: "rgb(38, 57, 77) 0px 20px 30px -10px"
                 }}>
                     <DefectModal depCode={depCode} termName={termName} loginData={state} />
                     <Box
                         sx={{
-                            padding: "0px 10px",
-                            width: "80%",
+                            padding: { lg: "0px 10px" },
+                            width: { xs: "100%", sm: "100%", md: "100%", lg: "80%" },
                             display: "flex",
                             flexDirection: "column",
+                            alignItems: "center",
                             backgroundColor: "#eee",
                         }}
                     >
@@ -62,7 +116,26 @@ function DefectEntry() {
                         <DefectImage terminalDefects={terminalDefects} depCode={depCode} termName={termName} />
                         <BottomSection />
                     </Box>
-                    <SideSection defectPageHeader={defectPageHeader} selectedDefectPart={selectedDefectPart} />
+                    <Box
+                        sx={{
+                            display: { xs: "flex", sm: "flex", md: "flex", lg: "none" },
+                        }}>
+                        <Menu right width={300} customBurgerIcon={<ArrowBackIosNewIcon />} styles={styles}>
+                            <SideSection defectPageHeader={defectPageHeader} selectedDefectPart={selectedDefectPart} />
+                        </Menu>
+                    </Box>
+                    <Box
+                        sx={{
+                            width: "20%",
+                            backgroundColor: "#eee",
+                            padding: "15px 15px",
+                            display: { xs: "none", sm: "none", md: "none", lg: "flex" },
+                            gap: "20px",
+                            flexDirection: "column",
+                            alignItems: "center",
+                        }}>
+                        <SideSection defectPageHeader={defectPageHeader} selectedDefectPart={selectedDefectPart} />
+                    </Box>
                 </Box>
             </Container>
         </>

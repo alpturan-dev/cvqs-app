@@ -5,12 +5,13 @@ import { useContext, useEffect } from "react";
 import TerminalContext from "../../context/TerminalContext";
 import ShiftContext from '../../context/ShiftContext';
 import { Formik } from 'formik';
-import SelectBox from "./components/SelectBox";
 import ShiftBox from "./components/ShiftBox";
 import VirtualKeyboard from "../../components/VirtualKeyboard";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import KeyboardContext from '../../context/KeyboardContext';
+import * as Yup from 'yup';
+import SelectBox from '../../components/SelectBox';
 
 function TerminalLoginPage() {
 
@@ -20,40 +21,26 @@ function TerminalLoginPage() {
         navigate(`/terminal/defectentry/${depCode}/${termName}/3070725`, { state: values });
     }
     const { filteredTerminals, getFilteredTerminals, selectedTerminal } = useContext(TerminalContext);
-    const {
-        sicilNo,
-        setSicilNo,
-        password,
-        setPassword,
-        montajNo,
-        setMontajNo,
-        date,
-        shift,
-    } = useContext(ShiftContext);
+    const { loginForm, setLoginForm } = useContext(ShiftContext);
 
-    const { field, setField } = useContext(KeyboardContext);
+    const { field, setField, handleField } = useContext(KeyboardContext);
 
     useEffect(() => {
         getFilteredTerminals(depCode, termName);
     }, [])
 
-    const handleField = (event) => {
-        setField(event.target.id)
-    }
 
     const keyboard = useRef();
 
     const onChangeField = event => {
         const input = event.target.value;
-        if (event.target.id === "sicilNo") {
-            setSicilNo(input);
-        } else if (event.target.id === "password") {
-            setPassword(input);
-        } else if (event.target.id === "montajNo") {
-            setMontajNo(input);
-        }
+        setLoginForm({ ...loginForm, [event.target.id]: input })
         keyboard.current.setInput(input);
     };
+
+    const SignupSchema = Yup.object().shape({
+        registrationNo: Yup.number().required().positive().integer()
+    });
 
     return (
         <Box sx={{
@@ -88,37 +75,38 @@ function TerminalLoginPage() {
                 <Formik
                     initialValues={{
                         terminal: selectedTerminal,
-                        sicilNo: sicilNo,
-                        password: password,
-                        montajNo: montajNo,
-                        date: date,
-                        shift: shift
+                        registrationNo: loginForm.registrationNo,
+                        password: loginForm.password,
+                        assemblyNo: loginForm.assemblyNo,
+                        date: loginForm.date,
+                        shift: loginForm.shift
                     }}
-                    validate={values => {
-                        const errors = {};
-                        if (!values.sicilNo) {
-                            errors.sicilNo = 'Bu alan boş bırakılamaz!';
-                        } else if (
-                            !/^[0-9]*$/i.test(values.sicilNo)
-                        ) {
-                            errors.sicilNo = 'Geçersiz Sicil No!';
-                        }
-                        if (!values.password) {
-                            errors.password = 'Bu alan boş bırakılamaz!';
-                        } else if (
-                            !/^[0-9]*$/i.test(values.password)
-                        ) {
-                            errors.password = 'Geçersiz Şifre!';
-                        }
-                        if (!values.montajNo) {
-                            errors.montajNo = 'Bu alan boş bırakılamaz!';
-                        } else if (
-                            !/^[0-9]*$/i.test(values.montajNo)
-                        ) {
-                            errors.montajNo = 'Geçersiz Montaj No!';
-                        }
-                        return errors;
-                    }}
+                    validationSchema={SignupSchema}
+                    // validate={values => {
+                    //     const errors = {};
+                    //     if (!values.sicilNo) {
+                    //         errors.sicilNo = 'Bu alan boş bırakılamaz!';
+                    //     } else if (
+                    //         !/^[0-9]*$/i.test(values.sicilNo)
+                    //     ) {
+                    //         errors.sicilNo = 'Geçersiz Sicil No!';
+                    //     }
+                    //     if (!values.password) {
+                    //         errors.password = 'Bu alan boş bırakılamaz!';
+                    //     } else if (
+                    //         !/^[0-9]*$/i.test(values.password)
+                    //     ) {
+                    //         errors.password = 'Geçersiz Şifre!';
+                    //     }
+                    //     if (!values.montajNo) {
+                    //         errors.montajNo = 'Bu alan boş bırakılamaz!';
+                    //     } else if (
+                    //         !/^[0-9]*$/i.test(values.montajNo)
+                    //     ) {
+                    //         errors.montajNo = 'Geçersiz Montaj No!';
+                    //     }
+                    //     return errors;
+                    // }}
                     onSubmit={(values) => {
                         setTimeout(() => {
                             // setSelectedTerminal(values.selectedTerminal)
@@ -142,10 +130,20 @@ function TerminalLoginPage() {
                                 margin: "20px auto"
                             }}
                         >
-                            <SelectBox
-                                inputLabel='Terminal'
-                                categories={filteredTerminals}
-                            />
+                            <Box sx={{
+                                width: "450px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                gap: "40px"
+                            }}>
+                                <SelectBox
+                                    context="terminal"
+                                    name="terminal"
+                                    inputLabel='Terminal'
+                                    categories={filteredTerminals}
+                                />
+                            </Box>
                             <Box sx={{
                                 width: "450px",
                                 display: "flex",
@@ -159,17 +157,17 @@ function TerminalLoginPage() {
                                     onFocus={handleField}
                                     label="Sicil No"
                                     variant="filled"
-                                    id="sicilNo"
-                                    name="sicilNo"
+                                    id="registrationNo"
+                                    name="registrationNo"
                                     autoComplete="off"
-                                    value={sicilNo}
+                                    value={loginForm.registrationNo}
                                     onBlur={props.handleBlur}
                                     onChange={(e) => {
                                         onChangeField(e)
                                         props.handleChange(e);
                                     }}
-                                    error={props.errors.sicilNo && props.touched.sicilNo && true}
-                                    helperText={props.errors.sicilNo && props.touched.sicilNo && props.errors.sicilNo}
+                                    error={props.errors.registrationNo && props.touched.registrationNo && true}
+                                    helperText={props.errors.registrationNo && props.touched.registrationNo && props.errors.registrationNo}
                                 />
                             </Box>
                             <Box sx={{
@@ -188,14 +186,14 @@ function TerminalLoginPage() {
                                     name="password"
                                     id="password"
                                     autoComplete=''
-                                    value={password}
+                                    value={loginForm.password}
                                     onChange={(e) => {
                                         onChangeField(e)
                                         props.handleChange(e);
                                     }}
                                     onBlur={props.handleBlur}
-                                    error={props.errors.password && props.touched.password && true}
-                                    helperText={props.errors.password && props.touched.password && props.errors.password}
+                                    error={props.errors.password && true}
+                                    helperText={props.errors.password && props.errors.password}
                                 />
                             </Box>
                             <Box sx={{
@@ -211,18 +209,17 @@ function TerminalLoginPage() {
                                     onFocus={handleField}
                                     variant="filled"
                                     label="Montaj No"
-                                    type="montajNo"
-                                    name="montajNo"
-                                    id="montajNo"
+                                    name="assemblyNo"
+                                    id="assemblyNo"
                                     autoComplete="off"
-                                    value={montajNo}
+                                    value={loginForm.assemblyNo}
                                     onChange={(e) => {
                                         onChangeField(e)
                                         props.handleChange(e);
                                     }}
                                     onBlur={props.handleBlur}
-                                    error={props.errors.montajNo && props.touched.montajNo && true}
-                                    helperText={props.errors.montajNo && props.touched.montajNo && props.errors.montajNo}
+                                    error={props.errors.assemblyNo && true}
+                                    helperText={props.errors.assemblyNo && props.errors.assemblyNo}
                                 />
                             </Box>
                             <ShiftBox />

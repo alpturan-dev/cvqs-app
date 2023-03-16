@@ -3,22 +3,12 @@ import DefectContext from '../../../context/DefectContext'
 import { Box, Typography, FormControlLabel, Checkbox, TextField } from '@mui/material'
 import DefectEntryButton from '../../../components/CustomButton'
 
-function SideSection({ defectPageHeader, selectedDefectPart }) {
+function SideSection({ defectPageHeader }) {
 
-    const { defectSelected } = useContext(DefectContext)
+    const { defectSelected, selectedDefectPart } = useContext(DefectContext)
 
     return (
-        <Box
-            sx={{
-                width: "20%",
-                backgroundColor: "#eee",
-                padding: "15px 15px",
-                display: "flex",
-                gap: "20px",
-                flexDirection: "column",
-                alignItems: "center",
-            }}
-        >
+        <>
             <Typography
                 variant="h6"
                 sx={{
@@ -100,15 +90,16 @@ function SideSection({ defectPageHeader, selectedDefectPart }) {
             <DefectEntryButton label="SIK GELEN HATA" />
             <DefectEntryButton label="MANİFEST" />
             <Typography
+                variant='h6'
                 sx={{
                     cursor: "pointer",
                     display: "flex",
                     justifyContent: "flex-end",
-                    color: "#C9464B"
                 }}>
                 {selectedDefectPart?.defectName}
             </Typography>
             <Typography
+                variant='subtitle2'
                 sx={{
                     cursor: "pointer",
                     display: "flex",
@@ -117,7 +108,7 @@ function SideSection({ defectPageHeader, selectedDefectPart }) {
                 }}>
                 Teknik Destek CVQS (TMMT)
             </Typography>
-        </Box>
+        </>
     )
 }
 

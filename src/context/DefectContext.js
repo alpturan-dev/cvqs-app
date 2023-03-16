@@ -23,6 +23,27 @@ export const DefectProvider = ({ children }) => {
 
     const [innerScreen, setInnerScreen] = useState(false);
 
+    function closeInnerScreen() {
+        setInnerScreen(false);
+        setImage(imageURLs[0])
+    }
+
+    const imageURLs = [
+        "https://ikinciyeniblogfles.blob.core.windows.net/images/3e9cd9c7-0995-4859-90c9-1015f75cf686.jpg",
+        "https://i.ytimg.com/vi/NgyniN9ME4A/maxresdefault.jpg"
+    ]
+
+    const [image, setImage] = useState(imageURLs[0]);
+
+    const handleInnerImage = (childPicID) => {
+        //childPicId'ye gore image degistirilebilir.
+        if (childPicID === 87897) {
+            //A/C icin dummy foto
+            setImage(imageURLs[1])
+            setInnerScreen(true)
+        }
+    }
+
     const [defectSelected, setDefectSelected] = useState(false)
 
     const [arrow, setArrow] = useState({ x: "", y: "" })
@@ -35,6 +56,10 @@ export const DefectProvider = ({ children }) => {
         getDefectList,
         innerScreen,
         setInnerScreen,
+        closeInnerScreen,
+        image,
+        setImage,
+        handleInnerImage,
         defectSelected,
         setDefectSelected,
         arrow,

@@ -1,12 +1,12 @@
 import DatePickerField from "./DatePickerField";
-import ShiftSelect from "./ShiftSelect";
 import { Box } from "@mui/material";
 import { useContext } from 'react'
 import ShiftContext from "../../../context/ShiftContext";
+import SelectBox from "../../../components/SelectBox";
 
 function ShiftBox() {
 
-    const { selectedColor } = useContext(ShiftContext);
+    const { colors, selectedColor, setSelectedColor, loginForm, setLoginForm } = useContext(ShiftContext);
 
     return (
         <>
@@ -23,7 +23,7 @@ function ShiftBox() {
                     backgroundColor: selectedColor.color
                 }}>
                 <DatePickerField />
-                <ShiftSelect />
+                <SelectBox context="shift" name="shift" inputLabel="Vardiya" categories={colors} />
             </Box>
         </>
     )

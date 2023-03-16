@@ -14,7 +14,6 @@ export const ModalProvider = ({ children }) => {
             await axios.get(`/terminal/defectentry/${depCode}/${termName}/3070725/modalData`)
                 .then(res => {
                     const response = res;
-                    console.log(response.data)
                     setModalData(response.data)
                 });
         } catch (error) {
@@ -22,13 +21,15 @@ export const ModalProvider = ({ children }) => {
         }
     }
 
-    const [defectResponsible, setDefectResponsible] = useState("");
-    const [defectClass, setDefectClass] = useState("");
-    const [exitDepartment, setExitDepartment] = useState("");
-    const [repairType, setRepairType] = useState("");
-    const [description, setDescription] = useState("");
-    const [actionTaken, setActionTaken] = useState("");
-    const [nrComboBox, setNrComboBox] = useState("");
+    const [modalForm, setModalForm] = useState({
+        defectResponsible: "",
+        defectClass: "",
+        exitDepartment: "",
+        repairType: "",
+        description: "",
+        actionTaken: "",
+        nrComboBox: ""
+    })
 
     const modaldata = {
         openModal,
@@ -36,20 +37,8 @@ export const ModalProvider = ({ children }) => {
         modalData,
         setModalData,
         getModalData,
-        defectResponsible,
-        setDefectResponsible,
-        defectClass,
-        setDefectClass,
-        exitDepartment,
-        setExitDepartment,
-        repairType,
-        setRepairType,
-        description,
-        setDescription,
-        actionTaken,
-        setActionTaken,
-        nrComboBox,
-        setNrComboBox
+        modalForm,
+        setModalForm
     }
 
     return <ModalContext.Provider value={modaldata}>{children}</ModalContext.Provider>

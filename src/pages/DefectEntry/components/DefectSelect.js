@@ -7,7 +7,7 @@ import Select from '@mui/material/Select';
 import { BootstrapInput } from './BootstrapInput';
 import DefectContext from '../../../context/DefectContext';
 
-function DefectSelect({ visible, inputLabel, categories }) {
+function DefectSelect({ visible, categories }) {
 
     const { selectedDefectPart, setSelectedDefectPart } = useContext(DefectContext)
 
@@ -22,7 +22,6 @@ function DefectSelect({ visible, inputLabel, categories }) {
 
     return (
         <FormControl fullWidth variant="filled" sx={{ position: "absolute", top: "0", left: "0", display: visible ? "block" : "none" }}>
-            <InputLabel id="demo-simple-select-standard-label">{inputLabel}</InputLabel>
             <Select
                 MenuProps={{
                     PaperProps: {

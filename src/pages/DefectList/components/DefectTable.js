@@ -160,8 +160,10 @@ export default function App({ defectList }) {
                             <TableCell
                                 key={index}
                                 sx={{
+                                    fontSize: "0.9rem",
                                     fontWeight: "bolder",
                                     width: column.width,
+                                    height: "30px",
                                     backgroundColor: 'secondary.main',
                                     color: "primary.main",
                                 }}>
@@ -230,21 +232,6 @@ export default function App({ defectList }) {
                                 )
                         }
                     }
-                        // columns.map((column) => column.dataKey !== "colorExtCode" ? (
-                        //     <TableCell
-                        //         key={index}
-                        //         sx={{ width: column.width }}>
-                        //         {item[column.dataKey]}
-                        //     </TableCell>
-                        // )
-                        //     : <>
-                        //         <TableCell
-                        //             key={index}
-                        //             sx={{ width: column.width, backgroundColor: item.rgbCode,color }}>
-                        //             {item[column.dataKey]}
-                        //         </TableCell>
-                        //     </>
-                        // )
                     )
                 )
             }

@@ -9,42 +9,33 @@ import ModalContext from "../context/ModalContext";
 function VirtualKeyboard({ field, keyboard }) {
     const [layout, setLayout] = useState("default");
 
-    const handleShift = () => {
-        const newLayoutName = layout === "default" ? "shift" : "default";
-        setLayout(newLayoutName);
-    };
+    // const handleShift = () => {
+    //     const newLayoutName = layout === "default" ? "shift" : "default";
+    //     setLayout(newLayoutName);
+    // };
 
-    const onKeyPress = button => {
-        console.log("Button pressed", button);
+    // const onKeyPress = button => {
+    //     console.log("Button pressed", button);
 
-        /**
-         * If you want to handle the shift and caps lock buttons
-         */
-        // if (button === "{shift}" || button === "{lock}") handleShift();
-    };
+    //     // /**
+    //     //  * If you want to handle the shift and caps lock buttons
+    //     //  */
+    //     // // if (button === "{shift}" || button === "{lock}") handleShift();
+    // };
 
-    const { setSicilNo, setPassword, setMontajNo } = useContext(ShiftContext)
+    const { loginForm, setLoginForm } = useContext(ShiftContext)
 
-    const { setDescription, setActionTaken } = useContext(ModalContext)
+    const { modalForm, setModalForm } = useContext(ModalContext)
 
     const { setFieldValue } = useFormikContext();
 
     function onKeyboardChange(input) {
-        if (field === "sicilNo") {
-            setSicilNo(input);
-            setFieldValue('sicilNo', input)
-        } else if (field === "password") {
-            setPassword(input)
-            setFieldValue('password', input)
-        } else if (field === "montajNo") {
-            setMontajNo(input)
-            setFieldValue('montajNo', input)
-        } else if (field === "description") {
-            setDescription(input)
-            setFieldValue('description', input)
-        } else if (field === "actionTaken") {
-            setActionTaken(input)
-            setFieldValue('actionTaken', input)
+        if (field === "registrationNo" || "password" || "assemblyNo") {
+            setLoginForm({ ...loginForm, [field]: input })
+            setFieldValue(field, input)
+        } else if (field === "description" || "actionTaken") {
+            setModalForm({ ...modalForm, [field]: input })
+            setFieldValue(field, input)
         }
     };
 

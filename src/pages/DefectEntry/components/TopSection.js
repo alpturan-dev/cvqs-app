@@ -8,7 +8,8 @@ function TopSection({ defectPageHeader, colors, state }) {
                 height: "12%",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "space-around",
+                justifyContent: "center",
+                gap: "100px"
             }}
         >
             <Box

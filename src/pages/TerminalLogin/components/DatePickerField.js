@@ -11,7 +11,7 @@ import ShiftContext from '../../../context/ShiftContext';
 
 function DatePickerField() {
 
-    const { date, setDate } = useContext(ShiftContext);
+    const { loginForm, setLoginForm } = useContext(ShiftContext);
 
     const { setFieldValue } = useFormikContext();
 
@@ -31,10 +31,10 @@ function DatePickerField() {
                     label="Tarih"
                     openTo="year"
                     views={['year', 'month', 'day']}
-                    value={date}
+                    value={loginForm.date}
                     onChange={(newValue) => {
                         setFieldValue("date", newValue)
-                        setDate(newValue);
+                        setLoginForm({ ...loginForm, date: newValue });
                     }}
                     renderInput={(params) =>
                         <TextField

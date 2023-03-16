@@ -6,9 +6,15 @@ export const KeyboardProvider = ({ children }) => {
 
     const [field, setField] = useState("");
 
+    const handleField = (event) => {
+        console.log(event.target.id)
+        setField(event?.target?.id)
+    }
+
     const keyboardData = {
         field,
-        setField
+        setField,
+        handleField
     }
 
     return <KeyboardContext.Provider value={keyboardData}>{children}</KeyboardContext.Provider>

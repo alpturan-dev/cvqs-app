@@ -8,4 +8,5 @@ Defect entry sayfa tasarimi
 Defect Entry modal vs yapip bitir!
 Buyuk Font Basla
 
-Klavyenin hangi fieldda oldugunu degistiren fonskiyonda hook call hatasi aliyorum?
+//BUG FIXING DEVAM
+Form datalarini birlestirip daha yalin kod yaz. (modal formdan devam edilebilir)

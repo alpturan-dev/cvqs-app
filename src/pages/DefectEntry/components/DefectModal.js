@@ -8,7 +8,7 @@ import { TextField } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Formik } from 'formik';
-import ModalSelect from './ModalSelect';
+import SelectBox from '../../../components/SelectBox';
 import VirtualKeyboard from "../../../components/VirtualKeyboard";
 import { useRef } from "react";
 import ModalContext from '../../../context/ModalContext';
@@ -34,7 +34,7 @@ export default function DefectModal({ depCode, termName, loginData }) {
         setField
     } = useContext(KeyboardContext);
 
-    const { selectedDefectPart, arrow, setInnerScreen } = useContext(DefectContext)
+    const { selectedDefectPart, arrow, setInnerScreen, closeInnerScreen, setSelectedDefectPart, setDefectSelected } = useContext(DefectContext)
 
     const newDefectData = { selectedDefectPart, arrow };
 
@@ -50,20 +50,9 @@ export default function DefectModal({ depCode, termName, loginData }) {
         setOpenModal,
         modalData,
         getModalData,
-        defectResponsible,
-        setDefectResponsible,
-        defectClass,
-        setDefectClass,
-        exitDepartment,
-        setExitDepartment,
-        repairType,
-        setRepairType,
-        description,
-        setDescription,
-        actionTaken,
-        setActionTaken,
-        nrComboBox,
-        setNrComboBox } = useContext(ModalContext);
+        modalForm,
+        setModalForm
+    } = useContext(ModalContext);
 
     const handleClose = () => setOpenModal(false);
 
@@ -74,11 +63,7 @@ export default function DefectModal({ depCode, termName, loginData }) {
 
     const onChangeField = event => {
         const input = event.target.value;
-        if (event.target.id === "description") {
-            setDescription(input);
-        } else if (event.target.id === "actionTaken") {
-            setActionTaken(input);
-        }
+        setModalForm({ ...modalForm, [event.target.id]: input })
         keyboard.current.setInput(input);
     };
 
@@ -96,13 +81,13 @@ export default function DefectModal({ depCode, termName, loginData }) {
                     </Typography>
                     <Formik
                         initialValues={{
-                            defectResponsible,
-                            defectClass,
-                            exitDepartment,
-                            repairType,
-                            description,
-                            actionTaken,
-                            nrComboBox
+                            defectResponsible: modalForm.defectResponsible,
+                            defectClass: modalForm.defectClass,
+                            exitDepartment: modalForm.exitDepartment,
+                            repairType: modalForm.repairType,
+                            description: modalForm.description,
+                            actionTaken: modalForm.actionTaken,
+                            nrComboBox: modalForm.nrComboBox
                         }}
                         validate={values => {
                             // const errors = {};
@@ -134,7 +119,9 @@ export default function DefectModal({ depCode, termName, loginData }) {
                                 console.log('modal values', Object.assign(newDefectData, Object.assign(loginData, values)));
                                 toast.success('Hata kaydedildi!');
                                 handleClose();
-                                setInnerScreen(false)
+                                closeInnerScreen();
+                                setSelectedDefectPart("");
+                                setDefectSelected(false)
                             }, 600);
                         }}
                     >
@@ -167,10 +154,10 @@ export default function DefectModal({ depCode, termName, loginData }) {
                                             justifyContent: "space-between",
                                             gap: "20px"
                                         }}>
-                                            <Typography>Hata Sorumlusu</Typography>
-                                            <ModalSelect
-                                                field="defectResponsible"
-                                                inputLabel={modalData.requiredFieldsByInspectionDTOList[5].englishUserName}
+                                            <SelectBox
+                                                context="modal"
+                                                name="defectResponsible"
+                                                inputLabel="Hata Sorumlusu"
                                                 categories={modalData.requiredFieldsByInspectionDTOList[5].errDetailComboBoxValueDTOList}
                                             />
                                         </Box>
@@ -181,10 +168,10 @@ export default function DefectModal({ depCode, termName, loginData }) {
                                             justifyContent: "space-between",
                                             gap: "20px"
                                         }}>
-                                            <Typography>Hata Sınıfı</Typography>
-                                            <ModalSelect
-                                                field="defectClass"
-                                                inputLabel={modalData.requiredFieldsByInspectionDTOList[4].englishUserName}
+                                            <SelectBox
+                                                context="modal"
+                                                name="defectClass"
+                                                inputLabel="Hata Sınıfı"
                                                 categories={modalData.requiredFieldsByInspectionDTOList[4].errDetailComboBoxValueDTOList}
                                             />
                                         </Box>
@@ -195,10 +182,10 @@ export default function DefectModal({ depCode, termName, loginData }) {
                                             justifyContent: "space-between",
                                             gap: "20px"
                                         }}>
-                                            <Typography>Çıkış Departmanı</Typography>
-                                            <ModalSelect
-                                                field="exitDepartment"
-                                                inputLabel={modalData.requiredFieldsByInspectionDTOList[0].userName}
+                                            <SelectBox
+                                                context="modal"
+                                                name="exitDepartment"
+                                                inputLabel="Çıkış Departmanı"
                                                 categories={modalData.requiredFieldsByInspectionDTOList[0].errDetailComboBoxValueDTOList}
                                             />
                                         </Box>
@@ -209,9 +196,9 @@ export default function DefectModal({ depCode, termName, loginData }) {
                                             justifyContent: "space-between",
                                             gap: "20px"
                                         }}>
-                                            <Typography>Tamir Tipi</Typography>
-                                            <ModalSelect
-                                                field="repairType"
+                                            <SelectBox
+                                                context="modal"
+                                                name="repairType"
                                                 inputLabel="Tamir Tipi"
                                                 categories={[{ dataValue: "Inline" }, { dataValue: "Offline" }]}
                                             />
@@ -240,7 +227,7 @@ export default function DefectModal({ depCode, termName, loginData }) {
                                                 id="description"
                                                 name="description"
                                                 autoComplete="off"
-                                                value={description}
+                                                value={modalForm.description}
                                                 onBlur={props.handleBlur}
                                                 onChange={(e) => {
                                                     onChangeField(e)
@@ -265,7 +252,7 @@ export default function DefectModal({ depCode, termName, loginData }) {
                                                 id="actionTaken"
                                                 name="actionTaken"
                                                 autoComplete="off"
-                                                value={actionTaken}
+                                                value={modalForm.actionTaken}
                                                 onBlur={props.handleBlur}
                                                 onChange={(e) => {
                                                     onChangeField(e)
@@ -282,9 +269,9 @@ export default function DefectModal({ depCode, termName, loginData }) {
                                             justifyContent: "space-between",
                                             gap: "20px"
                                         }}>
-                                            <Typography>NR Combobox</Typography>
-                                            <ModalSelect
-                                                field="nrComboBox"
+                                            <SelectBox
+                                                context="modal"
+                                                name="nrComboBox"
                                                 inputLabel="NR Combobox"
                                                 categories={modalData.nrComboBox}
                                             />
@@ -310,18 +297,20 @@ export default function DefectModal({ depCode, termName, loginData }) {
                                     >
                                         KAYDET
                                     </Button>
-                                    <Button sx={{
-                                        width: "200px",
-                                        color: "#eee",
-                                        fontSize: "1rem",
-                                        backgroundColor: "primary.red",
-                                        padding: "15px 0px",
-                                        boxShadow: "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
-                                        '&:hover': {
+                                    <Button
+                                        onClick={() => setOpenModal(false)}
+                                        sx={{
+                                            width: "200px",
+                                            color: "#eee",
+                                            fontSize: "1rem",
                                             backgroundColor: "primary.red",
-                                            opacity: "0.9"
-                                        }
-                                    }}>
+                                            padding: "15px 0px",
+                                            boxShadow: "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+                                            '&:hover': {
+                                                backgroundColor: "primary.red",
+                                                opacity: "0.9"
+                                            }
+                                        }}>
                                         İPTAL
                                     </Button>
                                 </Box>
