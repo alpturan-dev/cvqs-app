@@ -3,10 +3,13 @@ import { Box, Typography, TextField } from '@mui/material'
 import TopSection from './TopSection'
 import DefectContext from '../../../context/DefectContext'
 import CustomButton from '../../../components/CustomButton'
+import { useTranslation } from 'react-i18next'
 
 function LargeFont({ depCode, termName, defectPageHeader, colors, state }) {
 
-    const { getLargeFontData, largeFontData, setLargeFontData, setLargeFont } = useContext(DefectContext)
+    const { t } = useTranslation();
+
+    const { getLargeFontData, largeFontData } = useContext(DefectContext)
 
     useEffect(() => {
         getLargeFontData(depCode, termName)
@@ -51,7 +54,6 @@ function LargeFont({ depCode, termName, defectPageHeader, colors, state }) {
                             <Typography variant="h4" key={index}>{defect.partName} - {defect.defectName}</Typography>
                         ))}
                     </Box>
-                    {/* <pre>{JSON.stringify(largeFontData, null, 2)}</pre> */}
                 </Box>
                 <Box
                     sx={{
@@ -63,7 +65,7 @@ function LargeFont({ depCode, termName, defectPageHeader, colors, state }) {
                         textAlign: "center"
                     }}
                 >
-                    <CustomButton type="HATA GİRİŞ" label="HATA GİRİŞ" />
+                    <CustomButton type="HATA GİRİŞ" label={t('defectEntry')} />
                     <Box sx={{
                         display: "flex",
                         flexDirection: "column",
@@ -75,7 +77,7 @@ function LargeFont({ depCode, termName, defectPageHeader, colors, state }) {
                             sx={{
                                 fontWeight: "bolder"
                             }}
-                        >MONTAJ NO</Typography>
+                        >{t('assemblyNo')}</Typography>
                         <TextField
                             sx={{
                                 width: "100%",
@@ -84,7 +86,7 @@ function LargeFont({ depCode, termName, defectPageHeader, colors, state }) {
                         // value={defectPageHeader.assyNo}
                         />
                     </Box>
-                    <CustomButton label="ARA" />
+                    <CustomButton label={t('search')} />
                 </Box>
             </Box>
         </Box>

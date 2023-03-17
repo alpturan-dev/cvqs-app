@@ -1,6 +1,11 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
+import { useTranslation } from "react-i18next";
+
 function TopSection({ defectPageHeader, colors, state }) {
+
+    const { t } = useTranslation();
+
     return (
         <Box
             sx={{
@@ -20,7 +25,7 @@ function TopSection({ defectPageHeader, colors, state }) {
                     alignItems: "center",
                 }}>
                 <Typography variant="h6">
-                    MONTAJ NO
+                    {t('assemblyNo').toUpperCase()}
                 </Typography>
                 <Typography variant="body1" sx={{ fontWeight: "bolder" }}>
                     {defectPageHeader.assyNo}
@@ -38,14 +43,14 @@ function TopSection({ defectPageHeader, colors, state }) {
                     backgroundColor: colors.filter(color => color.name === state.shift)[0].color
                 }}>
                 <Typography variant="h6">
-                    BODY NO
+                    {t('bodyNo').toUpperCase()}
                 </Typography>
                 <Typography variant="body1" sx={{ fontWeight: "bolder" }}>
                     {defectPageHeader.bodyNo}
                 </Typography>
             </Box>
             <Typography variant="h5">
-                HATA GİRİŞ EKRANI
+                {t('defectEntryScreen')}
             </Typography>
             <Box
                 sx={{
@@ -60,7 +65,7 @@ function TopSection({ defectPageHeader, colors, state }) {
                     color: "white"
                 }}>
                 <Typography variant="h6">
-                    RENK
+                    {t('color')}
                 </Typography>
                 <Typography variant="body1" sx={{ fontWeight: "bolder" }}>
                     {defectPageHeader.extCode}

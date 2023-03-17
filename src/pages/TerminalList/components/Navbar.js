@@ -1,7 +1,13 @@
 import { Box, Typography } from '@mui/material'
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function Navbar() {
+
+    const { t } = useTranslation();
+
+    const navbarLinks = [t('help'), t('home'), t('support')]
+
     return (
         <Box sx={{
             backgroundColor: "primary.main",
@@ -13,7 +19,7 @@ function Navbar() {
                 <Typography variant='h4' sx={{ fontWeight: "bolder" }}>Complete Vehicle Quality</Typography>
                 <Box
                     sx={{ display: "flex", gap: "25px" }}>
-                    {['Yardım', 'Anasayfa', 'Destek'].map((value, index) => (
+                    {navbarLinks.map((value, index) => (
                         <Link key={index} to='' style={{ textDecoration: "none" }}>
                             <Typography sx={{
                                 textDecoration: "none",

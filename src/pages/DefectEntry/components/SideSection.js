@@ -2,8 +2,11 @@ import React, { useContext } from 'react'
 import DefectContext from '../../../context/DefectContext'
 import { Box, Typography, FormControlLabel, Checkbox, TextField } from '@mui/material'
 import DefectEntryButton from '../../../components/CustomButton'
+import { useTranslation } from 'react-i18next'
 
 function SideSection({ defectPageHeader }) {
+
+    const { t } = useTranslation();
 
     const { defectSelected, selectedDefectPart } = useContext(DefectContext)
 
@@ -62,9 +65,9 @@ function SideSection({ defectPageHeader }) {
                     />
                 </Box>
             </Box>
-            <DefectEntryButton disabled="disabled" label="HIZLI KAYDET" />
-            <DefectEntryButton disabled="disabled" label="KAYDET VE GEÇ" />
-            <DefectEntryButton type="defectModal" disabled={!defectSelected && "disabled"} label="HATA KAYIT" />
+            <DefectEntryButton disabled="disabled" label={t('quickSave')} />
+            <DefectEntryButton disabled="disabled" label={t('saveAndSkip')} />
+            <DefectEntryButton type="defectModal" disabled={!defectSelected && "disabled"} label={t('defectLog')} />
             <Box sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -77,7 +80,7 @@ function SideSection({ defectPageHeader }) {
                         fontWeight: "bolder"
                     }}
                 >
-                    MONTAJ NO
+                    {t('assemblyNo').toUpperCase()}
                 </Typography>
                 <TextField
                     sx={{
@@ -87,10 +90,10 @@ function SideSection({ defectPageHeader }) {
                 // value={defectPageHeader.assyNo}
                 />
             </Box>
-            <DefectEntryButton label="ARA" />
-            <DefectEntryButton type="ilkresim" label="TERMİNAL İLK RESMİ" />
-            <DefectEntryButton label="SIK GELEN HATA" />
-            <DefectEntryButton label="MANİFEST" />
+            <DefectEntryButton label={t('search')} />
+            <DefectEntryButton type="ilkresim" label={t('terminalFirstPicture')} />
+            <DefectEntryButton label={t('commonDefect')} />
+            <DefectEntryButton label={t('manifest')} />
             <Typography
                 variant='h6'
                 sx={{
@@ -108,7 +111,7 @@ function SideSection({ defectPageHeader }) {
                     justifyContent: "flex-end",
                     color: "#C9464B"
                 }}>
-                Teknik Destek CVQS (TMMT)
+                {t('technicalSupport')} CVQS (TMMT)
             </Typography>
         </>
     )

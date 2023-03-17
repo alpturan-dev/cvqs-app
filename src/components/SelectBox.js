@@ -85,11 +85,11 @@ function ModalSelect({ visible, context, name, inputLabel, categories }) {
                     input={<BootstrapInput />}
                 >
                     {categories.map((item, index) => {
-                        if (inputLabel === "Vardiya") {
+                        if (name === "shift") {
                             return (<MenuItem value={item.code} name={item.name} key={index}>{item.code}</MenuItem>)
                         } else if (inputLabel === "NR Combobox") {
                             return (<MenuItem value={item.nrReasonAbb} key={index}>{item.nrReasonAbb}</MenuItem>)
-                        } else if (inputLabel === "Terminal") {
+                        } else if (name === "terminal") {
                             return (<MenuItem value={item.termName} key={index}>{item.termName}</MenuItem>)
                         } else if (context === "defect") {
                             return (<MenuItem value={item.defectName} key={index}>{item.defectName}</MenuItem>)

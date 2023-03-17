@@ -14,6 +14,7 @@ import { useRef } from "react";
 import ModalContext from '../../../context/ModalContext';
 import KeyboardContext from '../../../context/KeyboardContext';
 import toast, { Toaster } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
 const style = {
     position: 'absolute',
@@ -29,6 +30,9 @@ const style = {
 };
 
 export default function DefectModal({ depCode, termName, loginData }) {
+
+    const { t } = useTranslation();
+
     const {
         field,
         setField
@@ -115,7 +119,7 @@ export default function DefectModal({ depCode, termName, loginData }) {
                         onSubmit={(values) => {
                             setTimeout(() => {
                                 console.log('Defect Modal Values', Object.assign(newDefectData, Object.assign(loginData, values)));
-                                toast.success('Hata kaydedildi!');
+                                toast.success(t('defectSaved'));
                                 handleClose();
                                 closeInnerScreen();
                                 setSelectedDefectPart("");
@@ -155,7 +159,7 @@ export default function DefectModal({ depCode, termName, loginData }) {
                                             <SelectBox
                                                 context="modal"
                                                 name="defectResponsible"
-                                                inputLabel="Hata Sorumlusu"
+                                                inputLabel={t('defectResponsible')}
                                                 categories={modalData.requiredFieldsByInspectionDTOList[5].errDetailComboBoxValueDTOList}
                                             />
                                         </Box>
@@ -169,7 +173,7 @@ export default function DefectModal({ depCode, termName, loginData }) {
                                             <SelectBox
                                                 context="modal"
                                                 name="defectClass"
-                                                inputLabel="Hata Sınıfı"
+                                                inputLabel={t('defectClass')}
                                                 categories={modalData.requiredFieldsByInspectionDTOList[4].errDetailComboBoxValueDTOList}
                                             />
                                         </Box>
@@ -183,7 +187,7 @@ export default function DefectModal({ depCode, termName, loginData }) {
                                             <SelectBox
                                                 context="modal"
                                                 name="exitDepartment"
-                                                inputLabel="Çıkış Departmanı"
+                                                inputLabel={t('exitDepartment')}
                                                 categories={modalData.requiredFieldsByInspectionDTOList[0].errDetailComboBoxValueDTOList}
                                             />
                                         </Box>
@@ -197,7 +201,7 @@ export default function DefectModal({ depCode, termName, loginData }) {
                                             <SelectBox
                                                 context="modal"
                                                 name="repairType"
-                                                inputLabel="Tamir Tipi"
+                                                inputLabel={t('repairType')}
                                                 categories={[{ dataValue: "Inline" }, { dataValue: "Offline" }]}
                                             />
                                         </Box>
@@ -215,7 +219,7 @@ export default function DefectModal({ depCode, termName, loginData }) {
                                             justifyContent: "space-between",
                                             gap: "20px"
                                         }}>
-                                            <Typography>Açıklama</Typography>
+                                            <Typography>{t('description')}</Typography>
                                             <TextField
                                                 sx={{ width: "200px" }}
                                                 multiline
@@ -242,7 +246,7 @@ export default function DefectModal({ depCode, termName, loginData }) {
                                             justifyContent: "space-between",
                                             gap: "20px"
                                         }}>
-                                            <Typography>Yapılan İşlem</Typography>
+                                            <Typography>{t('actionTaken')}</Typography>
                                             <TextField
                                                 sx={{ width: "200px" }}
                                                 onFocus={handleField}
@@ -270,7 +274,7 @@ export default function DefectModal({ depCode, termName, loginData }) {
                                             <SelectBox
                                                 context="modal"
                                                 name="nrComboBox"
-                                                inputLabel="NR Combobox"
+                                                inputLabel={t('nrComboBox')}
                                                 categories={modalData.nrComboBox}
                                             />
                                         </Box>
@@ -293,7 +297,7 @@ export default function DefectModal({ depCode, termName, loginData }) {
                                         }}
                                         type="submit"
                                     >
-                                        KAYDET
+                                        {t('save')}
                                     </Button>
                                     <Button
                                         onClick={() => setOpenModal(false)}
@@ -309,7 +313,7 @@ export default function DefectModal({ depCode, termName, loginData }) {
                                                 opacity: "0.9"
                                             }
                                         }}>
-                                        İPTAL
+                                        {t('cancel')}
                                     </Button>
                                 </Box>
                                 <VirtualKeyboard keyboard={keyboard} field={field} />

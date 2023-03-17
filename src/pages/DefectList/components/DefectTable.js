@@ -11,13 +11,16 @@ import Paper from '@mui/material/Paper'
 import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useTranslation } from "react-i18next";
 
 export default function App({ defectList }) {
+
+    const { t } = useTranslation();
 
     const columns = [
         {
             width: 40,
-            label: 'Bildiren',
+            label: t('notifier'),
             dataKey: 'depCode',
         },
         {
@@ -34,31 +37,31 @@ export default function App({ defectList }) {
         },
         {
             width: 60,
-            label: 'Vin No',
+            label: t('vinNo'),
             dataKey: 'vinNo',
             numeric: true,
         },
         {
             width: 10,
-            label: 'Renk',
+            label: t('color'),
             dataKey: 'colorExtCode',
             numeric: true,
         },
         {
             width: 40,
-            label: 'Mdl',
+            label: t('model'),
             dataKey: 'modelCode',
             numeric: true,
         },
         {
             width: 40,
-            label: 'Sicil',
+            label: t('registration'),
             dataKey: 'localId',
             numeric: true,
         },
         {
             width: 60,
-            label: 'Parça',
+            label: t('part'),
             dataKey: 'partName',
             numeric: true,
         },
@@ -100,25 +103,25 @@ export default function App({ defectList }) {
         // },
         {
             width: 40,
-            label: 'Saat',
+            label: t('time'),
             dataKey: 'formattedDefectHour',
             numeric: true,
         },
         {
             width: 40,
-            label: 'Hata Türü',
+            label: t('defectType'),
             dataKey: 'defectType',
             numeric: true,
         },
         {
             width: 50,
-            label: 'Hata Sor',
+            label: t('defectResponsible'),
             dataKey: 'defrespName',
             numeric: true,
         },
         {
             width: 40,
-            label: 'Alt Sorumlu',
+            label: t('subResponsible'),
             dataKey: 'partCode1',
             numeric: true,
         },
@@ -130,13 +133,13 @@ export default function App({ defectList }) {
         },
         {
             width: 30,
-            label: 'Kaydet',
+            label: t('save'),
             dataKey: 'save',
             numeric: true,
         },
         {
             width: 50,
-            label: 'İşlem',
+            label: t('process'),
             dataKey: 'process',
             numeric: true,
         },

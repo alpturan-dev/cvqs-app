@@ -8,8 +8,11 @@ import { Typography } from "@mui/material";
 import { useFormikContext } from 'formik';
 import { useContext } from 'react'
 import ShiftContext from '../../../context/ShiftContext';
+import { useTranslation } from "react-i18next";
 
 function DatePickerField() {
+
+    const { t } = useTranslation();
 
     const { loginForm, setLoginForm } = useContext(ShiftContext);
 
@@ -24,11 +27,11 @@ function DatePickerField() {
                 justifyContent: "space-between",
                 gap: "40px"
             }}>
-            <Typography>Tarih</Typography>
+            <Typography>{t('date')}</Typography>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                     disableFuture
-                    label="Tarih"
+                    label={t('date')}
                     openTo="year"
                     views={['year', 'month', 'day']}
                     value={loginForm.date}

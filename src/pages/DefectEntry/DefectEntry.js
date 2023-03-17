@@ -15,25 +15,11 @@ import { slide as Menu } from 'react-burger-menu'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import warning from '../../assets/warning-audio.mp3'
 import LargeFont from "./components/LargeFont";
+import { useTranslation } from "react-i18next";
+
 function DefectEntry() {
-    // const [active, setActive] = useState('Active')
-    // const [remaining, setRemaining] = useState(0)
 
-    // const onIdle = () => {
-    //     setActive('Idle')
-    // }
-
-    // const onActive = () => {
-    //     setActive('Active')
-    // }
-
-    // const { getRemainingTime } = useIdleTimer({
-    //     onIdle,
-    //     onActive,
-    //     timeout: 10_000,
-    //     throttle: 500
-    // })
-
+    const { t } = useTranslation();
 
     let { depCode, termName } = useParams();
 
@@ -54,7 +40,7 @@ function DefectEntry() {
         }
     }, [active, remaining])
     useEffect(() => {
-        toast.success("Giriş yapıldı!")
+        toast.success(t('loginSuccess'))
         console.log("Login Form Data", state)
         getTerminalDefects(depCode, termName)
         getDefectPageHeader(depCode, termName)

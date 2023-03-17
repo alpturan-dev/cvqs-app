@@ -12,8 +12,11 @@ import { useNavigate } from "react-router-dom";
 import KeyboardContext from '../../context/KeyboardContext';
 import * as Yup from 'yup';
 import SelectBox from '../../components/SelectBox';
+import { useTranslation } from "react-i18next";
 
 function TerminalLoginPage() {
+
+    const { t } = useTranslation();
 
     let { depCode, termName } = useParams();
     const navigate = useNavigate();
@@ -127,7 +130,7 @@ function TerminalLoginPage() {
                                 <SelectBox
                                     context="terminal"
                                     name="terminal"
-                                    inputLabel='Terminal'
+                                    inputLabel={t('terminal')}
                                     categories={filteredTerminals}
                                 />
                             </Box>
@@ -138,11 +141,11 @@ function TerminalLoginPage() {
                                 justifyContent: "space-between",
                                 gap: "20px"
                             }}>
-                                <Typography>Sicil No</Typography>
+                                <Typography>{t('registrationNo')}</Typography>
                                 <TextField
                                     sx={{ minWidth: "200px" }}
                                     onFocus={handleField}
-                                    label="Sicil No"
+                                    label={t('registrationNo')}
                                     variant="filled"
                                     id="registrationNo"
                                     name="registrationNo"
@@ -164,7 +167,7 @@ function TerminalLoginPage() {
                                 justifyContent: "space-between",
                                 gap: "20px"
                             }}>
-                                <Typography>Şifre</Typography>
+                                <Typography>{t('password')}</Typography>
                                 <TextField
                                     sx={{ minWidth: "200px" }}
                                     onFocus={handleField}
@@ -190,12 +193,12 @@ function TerminalLoginPage() {
                                 justifyContent: "space-between",
                                 gap: "20px"
                             }}>
-                                <Typography>Montaj No</Typography>
+                                <Typography>{t('assemblyNo')}</Typography>
                                 <TextField
                                     sx={{ minWidth: "200px" }}
                                     onFocus={handleField}
                                     variant="filled"
-                                    label="Montaj No"
+                                    label={t('assemblyNo')}
                                     name="assemblyNo"
                                     id="assemblyNo"
                                     autoComplete="off"
@@ -226,7 +229,7 @@ function TerminalLoginPage() {
                                     }}
                                     type="submit"
                                 >
-                                    GİRİŞ YAP
+                                    {t('login')}
                                 </Button>
                                 <Button
                                     sx={{
@@ -241,8 +244,9 @@ function TerminalLoginPage() {
                                             opacity: "0.9"
                                         }
                                     }}
-                                    onClick={() => navigate('/')}>
-                                    KAPAT
+                                    onClick={() => navigate('/')}
+                                >
+                                    {t('close')}
                                 </Button>
                             </Box>
                             <VirtualKeyboard keyboard={keyboard} field={field} />
@@ -257,7 +261,7 @@ function TerminalLoginPage() {
                         justifyContent: "flex-end",
                         color: "#C9464B"
                     }}>
-                    Teknik Destek
+                    {t('technicalSupport')}
                 </Typography>
             </Box>
         </Box>

@@ -3,7 +3,12 @@ import { Box, Button, TextField, Typography } from '@mui/material'
 import DefectEntryButton from '../../../components/CustomButton'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { useTranslation } from 'react-i18next';
+
 function StickyFooter({ defectList }) {
+
+    const { t } = useTranslation();
+
     return (
         <Box
             sx={{
@@ -37,14 +42,14 @@ function StickyFooter({ defectList }) {
                             sx={{
                                 fontWeight: "bolder"
                             }}>
-                            Montaj No
+                            {t('assemblyNo')}
                         </Typography>
                         <Typography
                             variant='h6'
                             sx={{
                                 fontWeight: "bolder"
                             }}>
-                            Body No
+                            {t('bodyNo')}
                         </Typography>
                     </Box>
                     <Box
@@ -53,7 +58,6 @@ function StickyFooter({ defectList }) {
                             flexDirection: "column",
                             justifyContent: "flex-start",
                             gap: "25px",
-
                         }}>
                         <TextField
                             sx={{
@@ -77,8 +81,10 @@ function StickyFooter({ defectList }) {
                             gap: "15px",
 
                         }}>
-                        <DefectEntryButton label="ARA" />
-                        <DefectEntryButton label="ARA" />
+                        <DefectEntryButton label={t('search')}
+                        />
+                        <DefectEntryButton label={t('search')}
+                        />
                     </Box>
                     <Box
                         sx={{
@@ -123,13 +129,13 @@ function StickyFooter({ defectList }) {
                     alignItems: "center",
                     gap: "10px",
                 }}>
-                    <DefectEntryButton label="ARAÇ LİSTESİ" />
-                    <DefectEntryButton label="MANUEL HATA" />
-                    <DefectEntryButton label="ÇOKLU HATA" />
-                    <DefectEntryButton label="HATA LİSTESİ" />
-                    <DefectEntryButton label="HATA KOPYA" />
-                    <DefectEntryButton label="ÇIKIŞ" />
-                    <Typography sx={{ width: "100%", textAlign: "center" }}>Total Rows {defectList?.length}</Typography>
+                    <DefectEntryButton label={t('vehicleList')} />
+                    <DefectEntryButton label={t('manuelDefect')} />
+                    <DefectEntryButton label={t('multipleDefect')} />
+                    <DefectEntryButton label={t('defectList')} />
+                    <DefectEntryButton label={t('defectCopy')} />
+                    <DefectEntryButton label={t('exit')} />
+                    <Typography sx={{ width: "100%", textAlign: "center" }}>{t('totalRows')} {defectList?.length}</Typography>
                 </Box>
             </Box>
         </Box>

@@ -1,7 +1,10 @@
 import { Box, Typography } from '@mui/material'
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function TerminalTable({ terminals }) {
+
+    const { t } = useTranslation();
 
     const navigate = useNavigate();
     const handleLogin = (depCode, termName) => {
@@ -18,7 +21,7 @@ function TerminalTable({ terminals }) {
                 textAlign: "center",
                 color: "secondary.main"
             }}>
-                Tüm Terminaller
+                {t('allTerminals')}
             </Typography>
             <Box sx={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
                 <Box sx={{
@@ -30,10 +33,10 @@ function TerminalTable({ terminals }) {
                     backgroundColor: "#ddd"
                 }}>
                     <Typography variant='subtitle1' sx={{ width: "30%" }}>
-                        Bölüm Bazında
+                        {t("byDepartment")}
                     </Typography>
                     <Typography variant='subtitle1' sx={{ width: "70%", paddingLeft: "25%" }}>
-                        Filtre Bazında
+                        {t("byFilter")}
                     </Typography>
                 </Box>
                 <Box sx={{

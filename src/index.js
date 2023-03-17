@@ -9,6 +9,8 @@ import { ShiftProvider } from "./context/ShiftContext";
 import { DefectProvider } from './context/DefectContext';
 import { ModalProvider } from './context/ModalContext';
 import { KeyboardProvider } from './context/KeyboardContext';
+import './i18n'
+
 if (process.env.NODE_ENV === 'development') {
     require('./mocks/browser')
 }
