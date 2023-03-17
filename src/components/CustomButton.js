@@ -12,17 +12,24 @@ function CustomButton({ label, disabled, type }) {
 
     const { openModal, setOpenModal } = useContext(ModalContext)
 
-    const { handleLargeFont, setLargeFont } = useContext(DefectContext)
+    const { handleLargeFont, setLargeFont, closeInnerScreen, setDefectSelected, setSelectedDefectPart } = useContext(DefectContext)
 
     const handleClick = () => {
         if (type === "defectList") {
             navigate(`/terminal/defcorrect/${depCode}/${termName}`);
         } else if (type === "defectModal") {
             setOpenModal(true)
+        } else if (type === "clear") {
+            closeInnerScreen()
+            setDefectSelected(false)
+            setSelectedDefectPart(null)
         } else if (type === "largeFont") {
             setLargeFont(true);
+            setDefectSelected(false)
+
         } else if (type === "HATA GİRİŞ") {
             setLargeFont(false)
+            setDefectSelected(false)
         }
     }
 

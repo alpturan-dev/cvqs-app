@@ -38,8 +38,14 @@ function DefectImage({ terminalDefects, depCode, termName }) {
         setDropdown(!dropdown)
     }
 
+
     useEffect(() => {
-        if (arrow.x !== "") {
+        setArrow({ x: null, y: null })
+        setDefectSelected(false);
+    }, [])
+
+    useEffect(() => {
+        if (arrow.x !== null) {
             setDefectSelected(true);
         }
     }, [arrow])

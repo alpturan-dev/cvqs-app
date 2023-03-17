@@ -39,7 +39,10 @@ function TerminalLoginPage() {
     };
 
     const SignupSchema = Yup.object().shape({
-        registrationNo: Yup.number().required().positive().integer()
+        terminal: Yup.string().required(),
+        registrationNo: Yup.number().required().integer(),
+        password: Yup.number().required().integer(),
+        assemblyNo: Yup.number().required().integer(),
     });
 
     return (
@@ -73,6 +76,8 @@ function TerminalLoginPage() {
                     CVQS (TMMT)
                 </Typography>
                 <Formik
+                    validateOnChange={false}
+                    validateOnBlur={false}
                     initialValues={{
                         terminal: selectedTerminal,
                         registrationNo: loginForm.registrationNo,
@@ -82,39 +87,21 @@ function TerminalLoginPage() {
                         shift: loginForm.shift
                     }}
                     validationSchema={SignupSchema}
-                    // validate={values => {
-                    //     const errors = {};
-                    //     if (!values.sicilNo) {
-                    //         errors.sicilNo = 'Bu alan boş bırakılamaz!';
-                    //     } else if (
-                    //         !/^[0-9]*$/i.test(values.sicilNo)
-                    //     ) {
-                    //         errors.sicilNo = 'Geçersiz Sicil No!';
-                    //     }
-                    //     if (!values.password) {
-                    //         errors.password = 'Bu alan boş bırakılamaz!';
-                    //     } else if (
-                    //         !/^[0-9]*$/i.test(values.password)
-                    //     ) {
-                    //         errors.password = 'Geçersiz Şifre!';
-                    //     }
-                    //     if (!values.montajNo) {
-                    //         errors.montajNo = 'Bu alan boş bırakılamaz!';
-                    //     } else if (
-                    //         !/^[0-9]*$/i.test(values.montajNo)
-                    //     ) {
-                    //         errors.montajNo = 'Geçersiz Montaj No!';
-                    //     }
-                    //     return errors;
-                    // }}
+                    validate={values => {
+                        const errors = {};
+                        if (values.registrationNo !== "3070725") {
+                            errors.registrationNo = 'Wrong registration number!';
+                        }
+                        if (values.password !== "222") {
+                            errors.password = 'Wrong password!';
+                        }
+                        if (values.assemblyNo !== "222") {
+                            errors.assemblyNo = 'Wrong assembly number!';
+                        }
+                        return errors;
+                    }}
                     onSubmit={(values) => {
                         setTimeout(() => {
-                            // setSelectedTerminal(values.selectedTerminal)
-                            // setSicilNo(values.sicilNo)
-                            // setPassword(values.password)
-                            // setMontajNo(values.montajNo)
-                            // setDate(values.date)
-                            // setShift(values.shift) 
                             handleDefectEntry(depCode, termName, values);
                         }, 600);
                     }}
@@ -192,8 +179,8 @@ function TerminalLoginPage() {
                                         props.handleChange(e);
                                     }}
                                     onBlur={props.handleBlur}
-                                    error={props.errors.password && true}
-                                    helperText={props.errors.password && props.errors.password}
+                                    error={props.errors.password && props.touched.password && true}
+                                    helperText={props.errors.password && props.touched.password && props.errors.password}
                                 />
                             </Box>
                             <Box sx={{
@@ -218,8 +205,8 @@ function TerminalLoginPage() {
                                         props.handleChange(e);
                                     }}
                                     onBlur={props.handleBlur}
-                                    error={props.errors.assemblyNo && true}
-                                    helperText={props.errors.assemblyNo && props.errors.assemblyNo}
+                                    error={props.errors.assemblyNo && props.touched.assemblyNo && true}
+                                    helperText={props.errors.assemblyNo && props.touched.assemblyNo && props.errors.assemblyNo}
                                 />
                             </Box>
                             <ShiftBox />

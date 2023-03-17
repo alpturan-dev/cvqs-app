@@ -16,7 +16,7 @@ function BottomSection() {
             <DefectEntryButton label="MODEL İLK RESMİ" />
             <DefectEntryButton type="back" label="GERİ" />
             <DefectEntryButton type="defectList" label="HATA LİSTESİ" />
-            <DefectEntryButton label="TEMİZLE" />
+            <DefectEntryButton type="clear" label="TEMİZLE" />
             <DefectEntryButton type="largeFont" label="BÜYÜK FONT" />
         </Box>
     )

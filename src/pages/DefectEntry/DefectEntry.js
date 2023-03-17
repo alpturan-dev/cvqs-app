@@ -54,6 +54,7 @@ function DefectEntry() {
         }
     }, [active, remaining])
     useEffect(() => {
+        toast.success("Giriş yapıldı!")
         console.log("Login Form Data", state)
         getTerminalDefects(depCode, termName)
         getDefectPageHeader(depCode, termName)

@@ -71,7 +71,12 @@ function ModalSelect({ visible, context, name, inputLabel, categories }) {
                             }
                         }
                     }}
-                    sx={{ border: "2px solid #eee", borderRadius: "5px" }}
+                    sx={{
+                        border: "2px solid #eee", borderRadius: "5px", '& .MuiInputBase-input': {
+                            backgroundColor: "#ddd"
+                        },
+                    }}
+
                     id={name}
                     value={name === "shift" ? selectedColor.code : selected}
                     onFocus={handleField}
