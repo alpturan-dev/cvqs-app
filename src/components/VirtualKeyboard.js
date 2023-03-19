@@ -5,6 +5,7 @@ import ShiftContext from "../context/ShiftContext";
 import "react-simple-keyboard/build/css/index.css";
 import { useFormikContext } from "formik";
 import ModalContext from "../context/ModalContext";
+import turkishLayout from "simple-keyboard-layouts/build/layouts/turkish";
 
 function VirtualKeyboard({ field, keyboard }) {
     const [layout, setLayout] = useState("default");
@@ -15,12 +16,7 @@ function VirtualKeyboard({ field, keyboard }) {
     // };
 
     // const onKeyPress = button => {
-    //     console.log("Button pressed", button);
-
-    //     // /**
-    //     //  * If you want to handle the shift and caps lock buttons
-    //     //  */
-    //     // // if (button === "{shift}" || button === "{lock}") handleShift();
+    //     if (button === "{shift}" || button === "{lock}") handleShift();
     // };
 
     const { loginForm, setLoginForm } = useContext(ShiftContext)
@@ -44,8 +40,9 @@ function VirtualKeyboard({ field, keyboard }) {
             <Keyboard
                 keyboardRef={r => (keyboard.current = r)}
                 inputName={field}
-                layoutName={layout}
+                layoutName="default"
                 onChange={onKeyboardChange}
+            // onKeyPress={onKeyPress}
             />
         </>
     );

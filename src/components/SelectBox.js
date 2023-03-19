@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { useState, useContext } from 'react';
-import { Typography } from '@mui/material';
+import { useState, useContext, useRef } from 'react';
+import { Typography, Box } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -12,8 +12,10 @@ import TerminalContext from '../context/TerminalContext';
 import KeyboardContext from '../context/KeyboardContext';
 import { useFormikContext } from 'formik';
 import ModalContext from '../context/ModalContext';
-
+import { ReactDOM } from 'react';
 function ModalSelect({ visible, context, name, inputLabel, categories }) {
+
+    const ref = useRef();
 
     const {
         modalForm,
@@ -54,11 +56,10 @@ function ModalSelect({ visible, context, name, inputLabel, categories }) {
             setSelectedDefectPart({ defectName: filtered.defectName })
         }
     }
-
     return (
         <>
             <Typography>{inputLabel && inputLabel}</Typography>
-            <FormControl fullWidth variant="filled" sx={context === "defect" ? { position: "absolute", top: "0", left: "0", display: visible ? "block" : "none" } : { width: 200, color: "white" }}>
+            <FormControl ref={ref} id="selectbox" fullWidth variant="filled" sx={context === "defect" ? { position: "absolute", top: "0", left: "0", display: visible ? "block" : "none" } : { width: 200, color: "white" }}>
                 <Select
                     MenuProps={{
                         PaperProps: {
@@ -72,11 +73,12 @@ function ModalSelect({ visible, context, name, inputLabel, categories }) {
                         }
                     }}
                     sx={{
-                        border: "2px solid #eee", borderRadius: "5px", '& .MuiInputBase-input': {
+                        border: "2px solid #eee",
+                        borderRadius: "5px",
+                        '& .MuiInputBase-input': {
                             backgroundColor: "#ddd"
                         },
                     }}
-
                     id={name}
                     value={name === "shift" ? selectedColor.code : selected}
                     onFocus={handleField}

@@ -115,7 +115,8 @@ function DefectEntry() {
                 )}
                 <Box sx={{
                     width: "100%",
-                    border: "2px solid #ddd",
+                    border: "2px solid",
+                    borderColor: !active ? "red" : "#ddd",
                     borderRadius: "10px",
                     display: "flex",
                     flexDirection: "row",
@@ -130,6 +131,7 @@ function DefectEntry() {
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
+                            backgroundColor: !active && "red",
                         }}
                     >
                         {largeFont ? (
@@ -169,8 +171,8 @@ function DefectEntry() {
                     )}
 
                 </Box>
-            </Container>
-        </Box>
+            </Container >
+        </Box >
     )
 }
 export default DefectEntry

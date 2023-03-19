@@ -84,7 +84,7 @@ export const DefectProvider = ({ children }) => {
     const { getRemainingTime } = useIdleTimer({
         onIdle,
         onActive,
-        // timeout: 70_000,
+        timeout: 70_000,
         throttle: 500
     })
 

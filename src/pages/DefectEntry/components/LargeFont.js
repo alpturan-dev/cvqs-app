@@ -9,7 +9,7 @@ function LargeFont({ depCode, termName, defectPageHeader, colors, state }) {
 
     const { t } = useTranslation();
 
-    const { getLargeFontData, largeFontData } = useContext(DefectContext)
+    const { getLargeFontData, largeFontData, active } = useContext(DefectContext)
 
     useEffect(() => {
         getLargeFontData(depCode, termName)
@@ -18,7 +18,7 @@ function LargeFont({ depCode, termName, defectPageHeader, colors, state }) {
     return (
         <Box
             sx={{
-                padding: "40px 0"
+                padding: "40px 0",
             }}>
             <Box sx={{ backgroundColor: "gray", color: "#eee", borderRadius: "5px" }}>
                 <TopSection defectPageHeader={defectPageHeader} colors={colors} state={state} />
@@ -29,7 +29,7 @@ function LargeFont({ depCode, termName, defectPageHeader, colors, state }) {
                     height: "100%",
                     display: "flex",
                     marginTop: "20px",
-                    backgroundColor: "#ddd",
+                    backgroundColor: active ? "#ddd" : "red",
                     alignItems: "center",
                     border: "2px solid gray",
                     borderRadius: "5px"

@@ -5,7 +5,7 @@ import TerminalContext from '../../../context/TerminalContext';
 import cursor from '../../../assets/cursor.png'
 import DefectContext from '../../../context/DefectContext';
 import GetPosition from '../../../utils/GetPosition';
-
+import Line from '../components/Line'
 function DefectImage({ terminalDefects, depCode, termName }) {
 
     const { defectInnerPageData, getDefectInnerPageData } = useContext(TerminalContext)
@@ -82,6 +82,7 @@ function DefectImage({ terminalDefects, depCode, termName }) {
                                 }}>
                                     <DefectSelect visible={dropdown} categories={defectInnerPageData.partDefects} />
                                 </Box>
+                                <Line boxX={defect.boxX} boxY={defect.boxY} x1={defect.lineX} y1={defect.lineY} />
                                 <Box
                                     sx={{
                                         display: arrow.x !== "" ? "block" : "none",
@@ -102,31 +103,33 @@ function DefectImage({ terminalDefects, depCode, termName }) {
                     <Box sx={{ width: "900px", height: "76%", border: "1px solid gray", position: "relative", backgroundImage: `url(${image})` }}>
                         {terminalDefects.map((defect, index) => {
                             return (
-                                <Box
-                                    key={index}
-                                    onClick={() => handleInnerImage(defect.childPicID)}
-                                    sx={{
-                                        cursor: "pointer",
-                                        position: "absolute",
-                                        width: defect.boxWidth - 8,
-                                        height: defect.boxHeight - 8,
-                                        left: defect.boxX,
-                                        top: defect.boxY,
-                                        border: "6px solid",
-                                        borderColor: defect.boxColor,
-                                        borderRadius: "5px",
-                                        fontSize: "1rem",
-                                        fontWeight: "bolder",
-                                    }}>
-                                    <Typography
-                                        variant="body2"
+                                <Box key={index}>
+                                    <Box
+                                        onClick={() => handleInnerImage(defect.childPicID)}
                                         sx={{
-                                            backgroundColor: "white",
-                                            color: defect.labelColor
-                                        }}
-                                    >
-                                        {defect.labelText}
-                                    </Typography>
+                                            cursor: "pointer",
+                                            position: "absolute",
+                                            width: defect.boxWidth - 8,
+                                            height: defect.boxHeight - 8,
+                                            left: defect.boxX,
+                                            top: defect.boxY,
+                                            border: "6px solid",
+                                            borderColor: defect.boxColor,
+                                            borderRadius: "5px",
+                                            fontSize: "1rem",
+                                            fontWeight: "bolder",
+                                        }}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{
+                                                backgroundColor: "white",
+                                                color: defect.labelColor
+                                            }}
+                                        >
+                                            {defect.labelText}
+                                        </Typography>
+                                    </Box>
+                                    <Line boxX={defect.boxX} boxY={defect.boxY} x1={defect.lineX} y1={defect.lineY} />
                                 </Box>
                             )
                         })}
