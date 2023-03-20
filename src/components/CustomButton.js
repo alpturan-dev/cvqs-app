@@ -10,9 +10,9 @@ function CustomButton({ label, disabled, type }) {
     const navigate = useNavigate();
     let { depCode, termName } = useParams();
 
-    const { openModal, setOpenModal } = useContext(ModalContext)
+    const { setOpenModal } = useContext(ModalContext)
 
-    const { handleLargeFont, setLargeFont, closeInnerScreen, setDefectSelected, setSelectedDefectPart } = useContext(DefectContext)
+    const { setLargeFont, closeInnerScreen, setDefectSelected, setSelectedDefectPart } = useContext(DefectContext)
 
     const handleClick = () => {
         if (type === "defectList") {

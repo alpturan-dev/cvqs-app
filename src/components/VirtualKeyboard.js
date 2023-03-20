@@ -1,23 +1,21 @@
-import React, { useRef, useState, useContext } from "react";
-import ReactDOM from "react-dom";
+import React, { useState, useContext } from "react";
 import Keyboard from "react-simple-keyboard";
 import ShiftContext from "../context/ShiftContext";
 import "react-simple-keyboard/build/css/index.css";
 import { useFormikContext } from "formik";
 import ModalContext from "../context/ModalContext";
-import turkishLayout from "simple-keyboard-layouts/build/layouts/turkish";
 
 function VirtualKeyboard({ field, keyboard }) {
     const [layout, setLayout] = useState("default");
 
-    // const handleShift = () => {
-    //     const newLayoutName = layout === "default" ? "shift" : "default";
-    //     setLayout(newLayoutName);
-    // };
+    const handleShift = () => {
+        const newLayoutName = layout === "default" ? "shift" : "default";
+        setLayout(newLayoutName);
+    };
 
-    // const onKeyPress = button => {
-    //     if (button === "{shift}" || button === "{lock}") handleShift();
-    // };
+    const onKeyPress = button => {
+        if (button === "{shift}" || button === "{lock}") handleShift();
+    };
 
     const { loginForm, setLoginForm } = useContext(ShiftContext)
 
@@ -42,7 +40,7 @@ function VirtualKeyboard({ field, keyboard }) {
                 inputName={field}
                 layoutName="default"
                 onChange={onKeyboardChange}
-            // onKeyPress={onKeyPress}
+                onKeyPress={onKeyPress}
             />
         </>
     );

@@ -3,6 +3,7 @@ import DefectEntry from './pages/DefectEntry/DefectEntry';
 import TerminalList from "./pages/TerminalList/TerminalList";
 import TerminalLogin from "./pages/TerminalLogin/TerminalLogin";
 import DefectList from './pages/DefectList/DefectList';
+
 function App() {
     return (
         <Routes>

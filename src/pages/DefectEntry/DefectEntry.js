@@ -1,10 +1,9 @@
-import { useEffect, useContext, useState } from "react"
+import { useEffect, useContext } from "react"
 import { useParams, useLocation } from "react-router-dom";
-import { Box, Container, Typography, Checkbox, FormControlLabel, TextField } from "@mui/material"
+import { Box, Container } from "@mui/material"
 import ShiftContext from "../../context/ShiftContext";
 import TerminalContext from "../../context/TerminalContext"
 import DefectContext from "../../context/DefectContext"
-import DefectEntryButton from "../../components/CustomButton";
 import DefectModal from './components/DefectModal'
 import DefectImage from "./components/DefectImage"
 import BottomSection from "./components/BottomSection";
@@ -29,7 +28,7 @@ function DefectEntry() {
 
     const { colors } = useContext(ShiftContext);
 
-    const { selectedDefectPart, largeFont, setLargeFont, active, remaining, getRemainingTime, setRemaining } = useContext(DefectContext)
+    const { selectedDefectPart, largeFont, active, remaining, getRemainingTime, setRemaining } = useContext(DefectContext)
     useEffect(() => {
         const interval = setInterval(() => {
             setRemaining(Math.ceil(getRemainingTime() / 1000))
@@ -39,6 +38,7 @@ function DefectEntry() {
             clearInterval(interval)
         }
     }, [active, remaining])
+
     useEffect(() => {
         toast.success(t('loginSuccess'))
         console.log("Login Form Data", state)
@@ -171,8 +171,8 @@ function DefectEntry() {
                     )}
 
                 </Box>
-            </Container >
-        </Box >
+            </Container>
+        </Box>
     )
 }
 export default DefectEntry

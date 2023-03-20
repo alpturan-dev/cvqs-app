@@ -7,6 +7,7 @@ function TerminalTable({ terminals }) {
     const { t } = useTranslation();
 
     const navigate = useNavigate();
+
     const handleLogin = (depCode, termName) => {
         navigate(`/terminal/${depCode}/${termName}`);
     }

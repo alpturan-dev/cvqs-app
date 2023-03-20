@@ -47,7 +47,7 @@ export const DefectProvider = ({ children }) => {
 
     const [defectSelected, setDefectSelected] = useState(false)
 
-    const [arrow, setArrow] = useState({ x: "", y: "" })
+    const [arrow, setArrow] = useState({ x: null, y: null })
 
     const [largeFont, setLargeFont] = useState(false);
 
@@ -84,7 +84,7 @@ export const DefectProvider = ({ children }) => {
     const { getRemainingTime } = useIdleTimer({
         onIdle,
         onActive,
-        timeout: 70_000,
+        timeout: 70000_000,
         throttle: 500
     })
 

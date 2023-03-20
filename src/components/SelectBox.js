@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState, useContext, useRef } from 'react';
-import { Typography, Box } from '@mui/material';
-import InputLabel from '@mui/material/InputLabel';
+import { Typography } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -12,23 +11,20 @@ import TerminalContext from '../context/TerminalContext';
 import KeyboardContext from '../context/KeyboardContext';
 import { useFormikContext } from 'formik';
 import ModalContext from '../context/ModalContext';
-import { ReactDOM } from 'react';
+
 function ModalSelect({ visible, context, name, inputLabel, categories }) {
 
     const ref = useRef();
 
-    const {
-        modalForm,
-        setModalForm
-    } = useContext(ModalContext)
+    const { modalForm, setModalForm } = useContext(ModalContext)
 
-    const { selectedTerminal, setSelectedTerminal } = useContext(TerminalContext);
+    const { setSelectedTerminal } = useContext(TerminalContext);
 
     const { selectedColor, setSelectedColor, loginForm, setLoginForm } = useContext(ShiftContext)
 
-    const { selectedDefectPart, setSelectedDefectPart } = useContext(DefectContext)
+    const { setSelectedDefectPart } = useContext(DefectContext)
 
-    const { field, setField, handleField } = useContext(KeyboardContext);
+    const { field, handleField } = useContext(KeyboardContext);
 
     const { setFieldValue } = useFormikContext();
 
@@ -41,7 +37,6 @@ function ModalSelect({ visible, context, name, inputLabel, categories }) {
             setModalForm({ ...modalForm, [field]: e.target.value })
         } else if (context === "shift") {
             let color = categories.filter(color => color.code === e.target.value)[0]
-            // console.log("shift id", e)
             setSelectedColor(color)
             setFieldValue(field, color.name)
             setLoginForm({
@@ -80,7 +75,7 @@ function ModalSelect({ visible, context, name, inputLabel, categories }) {
                         },
                     }}
                     id={name}
-                    value={name === "shift" ? selectedColor.code : selected}
+                    value={name !== "shift" ? selected : selectedColor.code}
                     onFocus={handleField}
                     onChange={handleChange}
                     color="secondary"

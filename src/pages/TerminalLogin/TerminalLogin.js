@@ -26,7 +26,7 @@ function TerminalLoginPage() {
     const { filteredTerminals, getFilteredTerminals, selectedTerminal } = useContext(TerminalContext);
     const { loginForm, setLoginForm } = useContext(ShiftContext);
 
-    const { field, setField, handleField } = useContext(KeyboardContext);
+    const { field, handleField } = useContext(KeyboardContext);
 
     useEffect(() => {
         getFilteredTerminals(depCode, termName);

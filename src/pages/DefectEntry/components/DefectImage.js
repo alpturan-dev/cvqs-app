@@ -14,7 +14,7 @@ function DefectImage({ terminalDefects, depCode, termName }) {
         getDefectInnerPageData(depCode, termName);
     }, [])
 
-    const { setDefectSelected, arrow, setArrow, innerScreen, setInnerScreen, image, setImage, handleInnerImage } = useContext(DefectContext)
+    const { setDefectSelected, arrow, setArrow, innerScreen, image, handleInnerImage } = useContext(DefectContext)
 
     const [dropdown, setDropdown] = useState("")
 
@@ -24,7 +24,6 @@ function DefectImage({ terminalDefects, depCode, termName }) {
 
 
     useEffect(() => {
-        setArrow({ x: null, y: null })
         setDefectSelected(false);
     }, [])
 
@@ -85,7 +84,7 @@ function DefectImage({ terminalDefects, depCode, termName }) {
                                 <Line boxX={defect.boxX} boxY={defect.boxY} x1={defect.lineX} y1={defect.lineY} />
                                 <Box
                                     sx={{
-                                        display: arrow.x !== "" ? "block" : "none",
+                                        display: arrow.x !== null ? "block" : "none",
                                         position: "absolute",
                                         width: "60px",
                                         height: "60px",

@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 const ShiftContext = createContext();
 
 export const ShiftProvider = ({ children }) => {
+
     const colors = [
         { name: "Mavi", color: "#457b9d", code: "M" },
         { name: "Kırmızı", color: "#d00000", code: "K" },
@@ -11,7 +12,9 @@ export const ShiftProvider = ({ children }) => {
     ]
 
     const [selectedColor, setSelectedColor] = useState(colors[0]);
+
     const [background, setBackground] = useState("");
+
     const [loginForm, setLoginForm] = useState({
         registrationNo: "",
         password: "",
@@ -19,6 +22,7 @@ export const ShiftProvider = ({ children }) => {
         date: dayjs(new Date()),
         shift: colors[0].name
     })
+
     const shiftdata = {
         colors,
         selectedColor,
@@ -28,6 +32,8 @@ export const ShiftProvider = ({ children }) => {
         loginForm,
         setLoginForm
     }
+
     return <ShiftContext.Provider value={shiftdata}>{children}</ShiftContext.Provider>
 }
+
 export default ShiftContext

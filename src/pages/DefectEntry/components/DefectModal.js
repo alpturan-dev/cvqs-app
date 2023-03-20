@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useContext } from 'react';
 import DefectContext from '../../../context/DefectContext';
-import ShiftContext from '../../../context/ShiftContext';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
@@ -13,7 +12,7 @@ import VirtualKeyboard from "../../../components/VirtualKeyboard";
 import { useRef } from "react";
 import ModalContext from '../../../context/ModalContext';
 import KeyboardContext from '../../../context/KeyboardContext';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 
 const style = {
@@ -38,7 +37,7 @@ export default function DefectModal({ depCode, termName, loginData }) {
         setField
     } = useContext(KeyboardContext);
 
-    const { selectedDefectPart, arrow, setInnerScreen, closeInnerScreen, setSelectedDefectPart, setDefectSelected } = useContext(DefectContext)
+    const { selectedDefectPart, arrow, closeInnerScreen, setSelectedDefectPart, setDefectSelected } = useContext(DefectContext)
 
     const newDefectData = { selectedDefectPart, arrow };
 
@@ -118,7 +117,8 @@ export default function DefectModal({ depCode, termName, loginData }) {
                         }}
                         onSubmit={(values) => {
                             setTimeout(() => {
-                                console.log('Defect Modal Values', Object.assign(newDefectData, Object.assign(loginData, values)));
+                                let defectModalValues = Object.assign(newDefectData, Object.assign(loginData, values))
+                                console.log('Defect Modal Values', defectModalValues);
                                 toast.success(t('defectSaved'));
                                 handleClose();
                                 closeInnerScreen();
@@ -235,8 +235,6 @@ export default function DefectModal({ depCode, termName, loginData }) {
                                                     onChangeField(e)
                                                     props.handleChange(e);
                                                 }}
-                                            // error={props.errors.sicilNo && props.touched.sicilNo && true}
-                                            // helperText={props.errors.sicilNo && props.touched.sicilNo && props.errors.sicilNo}
                                             />
                                         </Box>
                                         <Box sx={{
@@ -260,8 +258,6 @@ export default function DefectModal({ depCode, termName, loginData }) {
                                                     onChangeField(e)
                                                     props.handleChange(e);
                                                 }}
-                                            // error={props.errors.sicilNo && props.touched.sicilNo && true}
-                                            // helperText={props.errors.sicilNo && props.touched.sicilNo && props.errors.sicilNo}
                                             />
                                         </Box>
                                         <Box sx={{

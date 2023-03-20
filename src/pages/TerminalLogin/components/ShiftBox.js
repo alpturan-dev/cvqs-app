@@ -9,7 +9,7 @@ function ShiftBox() {
 
     const { t } = useTranslation();
 
-    const { colors, selectedColor, setSelectedColor, loginForm, setLoginForm } = useContext(ShiftContext);
+    const { colors, selectedColor } = useContext(ShiftContext);
 
     return (
         <>

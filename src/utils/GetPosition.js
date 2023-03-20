@@ -3,7 +3,6 @@ export default function GetPosition(el) {
     var yPos = 0;
 
     while (el) {
-        // deal with browser quirks with body/window/document and page scroll
         var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
         var yScroll = el.scrollTop || document.documentElement.scrollTop;
 
