@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import { Link } from "react-router-dom";
+import LanguageSelect from '../components/LanguageSelect'
 import { useTranslation } from "react-i18next";
 
 function Navbar() {
@@ -18,7 +19,7 @@ function Navbar() {
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <Typography variant='h4' sx={{ fontWeight: "bolder" }}>Complete Vehicle Quality</Typography>
                 <Box
-                    sx={{ display: "flex", gap: "25px" }}>
+                    sx={{ display: "flex", alignItems: "center", gap: "25px" }}>
                     {navbarLinks.map((value, index) => (
                         <Link key={index} to='' style={{ textDecoration: "none" }}>
                             <Typography sx={{
@@ -33,6 +34,7 @@ function Navbar() {
                             </Typography>
                         </Link>
                     ))}
+                    <LanguageSelect />
                 </Box>
             </Box>
         </Box>
