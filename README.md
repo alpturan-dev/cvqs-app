@@ -11,7 +11,7 @@
 ## About The Project
 Comple Vehicle Quality System (CVQS) is a vehicle defect control system that provides employees to track vehicles defects, detect new defects and save that defect to the system. It's super easy and efficient to use for your vehicle manufacturing plant.
 
-[<img width="1000" alt="Screenshot 2023-03-23 at 01 02 07" src="https://user-images.githubusercontent.com/78085175/227065374-ab3b1a09-a1a8-4f6d-abf8-08aaddb47332.png">](https://github.com/alpturan-dev/cvqs-app/assets/78085175/6a9b474f-2e27-4d23-a0b8-06fc46cd5d49)
+https://github.com/alpturan-dev/cvqs-app/assets/78085175/56c7669b-803b-487e-9772-2fed64fe80f0
 
 ### Built With
 
@@ -47,7 +47,7 @@ Comple Vehicle Quality System (CVQS) is a vehicle defect control system that pro
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/alpturan-dev/cvqs-app
    ```
 2. Install NPM packages
    ```sh
